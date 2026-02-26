@@ -8,7 +8,7 @@ export const SITE_CONFIG = {
   url: "https://nabinpariyar.com.np",
   ogImage: "/images/og-image.png",
   email: "nabin30217@gmail.com",
-  supportEmail: "nabinpariyar786@gmail.com",
+  supportEmail: "nabin30217@gmail.com",
 };
 
 export const NAV_LINKS: NavLink[] = [
