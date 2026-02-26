@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* ─── Dark Mode (Default) ─── */
+:root,
+[data-theme="dark"] {
+  --bg: #0b1220;
+  --surface: #111827;
+  --card: #1f2937;
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --glow: rgba(59, 130, 246, 0.25);
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #1e293b;
+}
+
+/* ─── Light Mode ─── */
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --surface: #f1f5f9;
+  --card: #ffffff;
+  --accent: #2563eb;
+  --accent-hover: #3b82f6;
+  --glow: rgba(37, 99, 235, 0.15);
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+}
+
+/* ─── Tailwind Theme Tokens ─── */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-glow: var(--glow);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
+  --font-sans: var(--font-inter);
+}
+
+/* ─── Base Styles ─── */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* ─── Glow Effect Utility ─── */
+.glow {
+  box-shadow: 0 0 20px var(--glow), 0 0 60px rgba(59, 130, 246, 0.1);
+}
+
+/* ─── Blinking Cursor for TypeWriter ─── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ─── Smooth Color Transitions ─── */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* Disable transition on page load to prevent flash */
+[data-theme-transitioning="false"] *,
+[data-theme-transitioning="false"] *::before,
+[data-theme-transitioning="false"] *::after {
+  transition: none !important;
+}
+
+/* ─── Reduced Motion: disable all animations ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
