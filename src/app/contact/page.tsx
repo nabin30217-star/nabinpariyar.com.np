@@ -5,6 +5,7 @@ import Card from "@/components/ui/Card";
 import { SOCIAL_LINKS } from "@/lib/constants";
 import { EmailIcon, GitHubIcon, PlayIcon } from "@/components/ui/Icons";
 import ContactForm from "@/components/sections/ContactForm";
+import FAQ from "@/components/sections/FAQ";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -36,9 +37,21 @@ export default function ContactPage() {
   return (
     <Container className="py-24 sm:py-32">
       <SectionHeading title="Get in Touch" />
+
+      {/* Availability banner */}
+      <div className="mb-10 flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-5 py-3">
+        <span className="relative flex h-3 w-3">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500" />
+        </span>
+        <p className="text-sm text-emerald-400">
+          <strong>Currently available</strong> for freelance projects and collaborations
+        </p>
+      </div>
+
       <p className="mb-10 max-w-xl text-lg text-text-muted">
         I&apos;m available for freelance work, collaborations, and interesting
-        conversations.
+        conversations. I typically respond within <strong className="text-text">24 hours</strong>.
       </p>
 
       <div className="grid gap-6 sm:grid-cols-3">
@@ -59,6 +72,9 @@ export default function ContactPage() {
       </div>
 
       <ContactForm />
+
+      {/* FAQ Section */}
+      <FAQ />
     </Container>
   );
 }

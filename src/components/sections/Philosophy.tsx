@@ -3,7 +3,7 @@
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Card from "@/components/ui/Card";
-import SlideUp from "@/components/animations/SlideUp";
+import { ClipReveal, RotateIn } from "@/components/animations/SlideUp";
 import { StaggerContainer, StaggerItem } from "@/components/animations/SlideUp";
 
 const principles = [
@@ -27,25 +27,29 @@ export default function Philosophy() {
       <Container>
         <SectionHeading title="Engineering Philosophy" />
 
-        <SlideUp>
+        {/* Quote with clip-path reveal */}
+        <ClipReveal>
           <blockquote className="mb-12 border-l-4 border-accent pl-6">
             <p className="text-xl font-medium leading-relaxed text-text italic sm:text-2xl">
               &ldquo;Great software should feel invisible — fast, intuitive, and
               reliable.&rdquo;
             </p>
           </blockquote>
-        </SlideUp>
+        </ClipReveal>
 
+        {/* Principles with rotate-in + stagger */}
         <StaggerContainer className="grid gap-6 sm:grid-cols-3">
           {principles.map((p, i) => (
-            <StaggerItem key={p.title}>
-              <Card className="h-full">
-                <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-accent/10 text-sm font-bold text-accent">
-                  {i + 1}
-                </div>
-                <h3 className="mt-3 text-lg font-semibold text-text">{p.title}</h3>
-                <p className="mt-2 text-sm text-text-muted">{p.description}</p>
-              </Card>
+            <StaggerItem key={p.title} direction={i === 0 ? "left" : i === 2 ? "right" : "up"}>
+              <RotateIn delay={i * 0.1}>
+                <Card className="h-full">
+                  <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-accent/10 text-sm font-bold text-accent">
+                    {i + 1}
+                  </div>
+                  <h3 className="mt-3 text-lg font-semibold text-text">{p.title}</h3>
+                  <p className="mt-2 text-sm text-text-muted">{p.description}</p>
+                </Card>
+              </RotateIn>
             </StaggerItem>
           ))}
         </StaggerContainer>

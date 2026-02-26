@@ -13,7 +13,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const { resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme, mounted } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -37,21 +37,29 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "border-b border-border bg-bg/80 shadow-sm backdrop-blur-md"
-          : "border-transparent bg-transparent"
-      }`}
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled
+        ? "border-b border-border bg-bg/80 shadow-sm backdrop-blur-md"
+        : "border-transparent bg-transparent"
+        }`}
     >
       <Container>
         <nav className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="text-lg font-bold tracking-tight text-text"
-          >
-            {SITE_CONFIG.name}
-          </Link>
+          {/* Logo + Availability */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="text-lg font-bold tracking-tight text-text"
+            >
+              {SITE_CONFIG.name}
+            </Link>
+            <span className="hidden items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-400 sm:flex">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              Available for Work
+            </span>
+          </div>
 
           {/* Desktop links */}
           <div className="hidden items-center gap-1 md:flex">
@@ -60,23 +68,26 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
-                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  pathname === link.href
-                    ? "text-accent"
-                    : "text-text-muted hover:text-accent-hover"
-                }`}
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${pathname === link.href
+                  ? "text-accent"
+                  : "text-text-muted hover:text-accent-hover"
+                  }`}
               >
                 {link.label}
               </Link>
             ))}
 
-            {/* Theme toggle */}
+            {/* Theme toggle — only render icon after mount to avoid hydration mismatch */}
             <button
               onClick={toggleTheme}
               className="ml-2 cursor-pointer rounded-lg p-2 text-text-muted transition-colors hover:text-accent-hover"
               aria-label="Toggle theme"
             >
-              {resolvedTheme === "dark" ? <SunIcon /> : <MoonIcon />}
+              {mounted ? (
+                resolvedTheme === "dark" ? <SunIcon /> : <MoonIcon />
+              ) : (
+                <span className="inline-block h-5 w-5" />
+              )}
             </button>
           </div>
 
@@ -110,11 +121,10 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
                     aria-current={pathname === link.href ? "page" : undefined}
-                    className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                      pathname === link.href
-                        ? "text-accent"
-                        : "text-text-muted hover:text-accent-hover"
-                    }`}
+                    className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${pathname === link.href
+                      ? "text-accent"
+                      : "text-text-muted hover:text-accent-hover"
+                      }`}
                   >
                     {link.label}
                   </Link>
@@ -123,7 +133,7 @@ export default function Navbar() {
                   onClick={toggleTheme}
                   className="mt-2 cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium text-text-muted transition-colors hover:text-accent-hover"
                 >
-                  {resolvedTheme === "dark" ? "Light Mode" : "Dark Mode"}
+                  {mounted ? (resolvedTheme === "dark" ? "Light Mode" : "Dark Mode") : "Toggle Theme"}
                 </button>
               </div>
             </Container>

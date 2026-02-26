@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { MotionConfig } from "framer-motion";
 
 type Theme = "light" | "dark" | "system";
@@ -9,6 +9,7 @@ interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   resolvedTheme: "light" | "dark";
+  mounted: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -26,19 +27,15 @@ function getSystemTheme(): "light" | "dark" {
     : "light";
 }
 
-function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "dark";
-  return (localStorage.getItem("theme") as Theme | null) ?? "dark";
-}
-
 function resolveTheme(theme: Theme): "light" | "dark" {
   return theme === "system" ? getSystemTheme() : theme;
 }
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(() => resolveTheme(getInitialTheme()));
-  const mountedRef = useRef(false);
+  // Always start with "dark" to match the server-rendered HTML (data-theme="dark")
+  const [theme, setThemeState] = useState<Theme>("dark");
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("dark");
+  const [mounted, setMounted] = useState(false);
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
@@ -52,13 +49,16 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     }
   }, []);
 
-  // Apply theme on mount
+  // Read the real theme from localStorage AFTER mount (avoids hydration mismatch)
   useEffect(() => {
-    if (!mountedRef.current) {
-      mountedRef.current = true;
-      document.documentElement.setAttribute("data-theme", resolvedTheme);
-    }
-  }, [resolvedTheme]);
+    const stored = localStorage.getItem("theme") as Theme | null;
+    const initial = stored ?? "dark";
+    const resolved = resolveTheme(initial);
+    setThemeState(initial);
+    setResolvedTheme(resolved);
+    document.documentElement.setAttribute("data-theme", resolved);
+    setMounted(true);
+  }, []);
 
   // Listen for system theme changes when in "system" mode
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme, mounted }}>
       <MotionConfig reducedMotion="user">
         {children}
       </MotionConfig>

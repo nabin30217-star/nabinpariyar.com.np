@@ -2,9 +2,9 @@
 
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
-import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
+import TiltCard from "@/components/animations/TiltCard";
 import { StaggerContainer, StaggerItem } from "@/components/animations/SlideUp";
 import ProjectCardImage from "@/components/ui/ProjectCardImage";
 import { projects } from "@/lib/data/projects";
@@ -12,6 +12,9 @@ import { caseStudies } from "@/lib/data/case-studies";
 
 export default function FeaturedProjects() {
   const featured = projects.filter((p) => p.featured);
+
+  // Alternate directions for visual variety
+  const directions: Array<"left" | "up" | "right"> = ["left", "up", "right"];
 
   return (
     <section className="py-20 sm:py-24">
@@ -21,11 +24,15 @@ export default function FeaturedProjects() {
           subtitle="Some things I've built"
         />
         <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((project) => {
+          {featured.map((project, index) => {
             const hasCaseStudy = caseStudies.some((cs) => cs.slug === project.id);
             return (
-              <StaggerItem key={project.id}>
-                <Card className="flex h-full flex-col">
+              <StaggerItem
+                key={project.id}
+                direction={directions[index % directions.length]}
+                scale
+              >
+                <TiltCard className="flex h-full flex-col p-6" maxTilt={8}>
                   <ProjectCardImage projectId={project.id} />
                   <h3 className="text-lg font-semibold text-text">
                     {project.title}
@@ -58,7 +65,7 @@ export default function FeaturedProjects() {
                       </a>
                     )}
                   </div>
-                </Card>
+                </TiltCard>
               </StaggerItem>
             );
           })}
