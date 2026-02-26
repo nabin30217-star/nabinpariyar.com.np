@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface TypeWriterProps {
   words: string[];
@@ -18,6 +18,7 @@ export default function TypeWriter({
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const word = words[currentWordIndex];
@@ -27,7 +28,7 @@ export default function TypeWriter({
         if (!isDeleting) {
           setCurrentText(word.slice(0, currentText.length + 1));
           if (currentText === word) {
-            setTimeout(() => setIsDeleting(true), 2000);
+            pauseTimeoutRef.current = setTimeout(() => setIsDeleting(true), 2000);
           }
         } else {
           setCurrentText(word.slice(0, currentText.length - 1));
@@ -40,7 +41,13 @@ export default function TypeWriter({
       isDeleting ? deleteSpeed : speed
     );
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (pauseTimeoutRef.current) {
+        clearTimeout(pauseTimeoutRef.current);
+        pauseTimeoutRef.current = null;
+      }
+    };
   }, [currentText, isDeleting, currentWordIndex, words, speed, deleteSpeed]);
 
   return (

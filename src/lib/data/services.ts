@@ -30,17 +30,17 @@ export const services: Service[] = [
     ],
   },
   {
-    id: "ui-ux-design",
-    title: "UI/UX Design",
+    id: "ui-design",
+    title: "UI Design & Implementation",
     description:
-      "Clean, intuitive interfaces that users love. Mobile-first design with attention to detail, accessibility, and user flow.",
+      "Clean, intuitive interfaces built with Material Design 3. I design and implement mobile-first UIs that look great and feel natural.",
     icon: "palette",
     features: [
       "Mobile-first approach",
-      "Material Design guidelines",
-      "User research & testing",
-      "Prototyping",
-      "Design systems",
+      "Material Design 3 guidelines",
+      "Responsive layouts",
+      "Dark & light theme support",
+      "Accessibility basics",
     ],
   },
   {

@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 };
 
 const timeline = [
-  "Started learning Kotlin & Android development",
-  "Published first app on Google Play Store",
-  "Grew to 3 published apps",
-  "Started learning web development (Next.js, TypeScript)",
-  "Built this portfolio website",
+  { year: "2025", event: "Started learning Kotlin & Android development" },
+  { year: "2025", event: "Published first app on Google Play Store" },
+  { year: "2025", event: "Grew to 3 published apps with real users" },
+  { year: "2025", event: "Started learning web development (Next.js, TypeScript)" },
+  { year: "2026", event: "Built this portfolio website" },
 ];
 
 const skillCategories = [
@@ -67,7 +67,8 @@ export default function AboutPage() {
           {timeline.map((item, i) => (
             <div key={i} className="relative mb-8 last:mb-0">
               <div className="absolute -left-[41px] top-1 h-4 w-4 rounded-full border-2 border-accent bg-bg" />
-              <p className="text-text-muted">{item}</p>
+              <span className="text-xs font-semibold text-accent">{item.year}</span>
+              <p className="mt-1 text-text-muted">{item.event}</p>
             </div>
           ))}
         </div>

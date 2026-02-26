@@ -8,16 +8,16 @@ import { StaggerContainer, StaggerItem } from "@/components/animations/SlideUp";
 
 const principles = [
   {
-    title: "Ship Early, Iterate Often",
-    description: "Start with an MVP, gather real user feedback, and improve relentlessly.",
+    title: "Build What People Use",
+    description: "Every app I build starts with a real problem. If it doesn't help someone, it's not worth shipping.",
   },
   {
-    title: "Clean Code Matters",
-    description: "Readable, maintainable, well-tested code is the foundation of every great product.",
+    title: "Learn by Doing",
+    description: "I went from zero Kotlin to 3 Play Store apps by building, breaking, and fixing — not just reading docs.",
   },
   {
-    title: "Never Stop Learning",
-    description: "From first line of Kotlin to full-stack in 6 months. Growth never stops.",
+    title: "Keep It Simple",
+    description: "The best apps feel effortless. I focus on clean UI, fast performance, and no unnecessary complexity.",
   },
 ];
 

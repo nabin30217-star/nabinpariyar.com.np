@@ -3,6 +3,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
+import ProjectCardImage from "@/components/ui/ProjectCardImage";
 import { projects } from "@/lib/data/projects";
 
 export const metadata: Metadata = {
@@ -37,6 +38,7 @@ export default function ProjectsPage() {
               </span>
             </div>
 
+            <ProjectCardImage projectId={project.id} />
             <h3 className="text-lg font-semibold text-text">{project.title}</h3>
             <p className="mt-2 text-sm text-text-muted">{project.description}</p>
 

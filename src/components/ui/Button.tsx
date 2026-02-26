@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -25,7 +22,7 @@ export default function Button({
   external = false,
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-bg cursor-pointer";
+    "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-bg cursor-pointer hover:scale-[1.02] active:scale-[0.98]";
 
   const variants = {
     primary: "bg-accent text-white hover:bg-accent-hover hover:glow",
@@ -44,40 +41,30 @@ export default function Button({
   if (href) {
     if (external) {
       return (
-        <motion.a
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+        <a
           href={href}
           target="_blank"
           rel="noopener noreferrer"
           className={classes}
         >
           {children}
-        </motion.a>
+        </a>
       );
     }
     return (
       <Link href={href} className={classes}>
-        <motion.span
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="inline-flex items-center gap-2"
-        >
-          {children}
-        </motion.span>
+        {children}
       </Link>
     );
   }
 
   return (
-    <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+    <button
       type={type}
       onClick={onClick}
       className={classes}
     >
       {children}
-    </motion.button>
+    </button>
   );
 }

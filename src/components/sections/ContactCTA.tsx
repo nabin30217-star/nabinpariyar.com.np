@@ -17,8 +17,8 @@ export default function ContactCTA() {
               className="flex flex-col items-center"
             />
             <p className="text-lg leading-8 text-text-muted">
-              I&apos;m currently available for freelance work and open to
-              interesting projects. Let&apos;s build something great.
+              Have an app idea or project in mind? I&apos;m open to
+              collaborations and interesting work. Let&apos;s talk.
             </p>
 
             <div className="mt-6 flex flex-col items-center gap-2">

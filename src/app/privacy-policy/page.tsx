@@ -42,10 +42,12 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 className="text-xl font-semibold text-text">3. Ads (AdMob)</h2>
           <p className="mt-2 leading-7 text-text-muted">
-            Our apps use Google AdMob to display advertisements. AdMob may
-            collect and use data such as your device&apos;s advertising ID, IP
-            address, and general location to serve relevant ads. You can control
-            ad personalization through your device&apos;s settings.
+            Our apps use Google AdMob to display advertisements. AdMob may use
+            third-party mediation partners (such as Meta Audience Network and
+            Unity Ads) to serve ads. These services may collect and use data
+            such as your device&apos;s advertising ID, IP address, and general
+            location to serve relevant ads. You can control ad personalization
+            through your device&apos;s settings.
           </p>
         </section>
 

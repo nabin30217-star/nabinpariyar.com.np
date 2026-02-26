@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 import { MotionConfig } from "framer-motion";
 
 type Theme = "light" | "dark" | "system";
@@ -26,36 +26,39 @@ function getSystemTheme(): "light" | "dark" {
     : "light";
 }
 
+function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "dark";
+  return (localStorage.getItem("theme") as Theme | null) ?? "dark";
+}
+
+function resolveTheme(theme: Theme): "light" | "dark" {
+  return theme === "system" ? getSystemTheme() : theme;
+}
+
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("dark");
-  const [mounted, setMounted] = useState(false);
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(() => resolveTheme(getInitialTheme()));
+  const mountedRef = useRef(false);
 
-  // On mount, read stored preference
-  useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    if (stored) {
-      setTheme(stored);
-    }
-    setMounted(true);
-  }, []);
-
-  // Apply theme to document
-  useEffect(() => {
-    if (!mounted) return;
-
-    const resolved =
-      theme === "system" ? getSystemTheme() : theme;
-
+  const setTheme = useCallback((newTheme: Theme) => {
+    setThemeState(newTheme);
+    const resolved = resolveTheme(newTheme);
     setResolvedTheme(resolved);
     document.documentElement.setAttribute("data-theme", resolved);
-
-    if (theme === "system") {
+    if (newTheme === "system") {
       localStorage.removeItem("theme");
     } else {
-      localStorage.setItem("theme", theme);
+      localStorage.setItem("theme", newTheme);
     }
-  }, [theme, mounted]);
+  }, []);
+
+  // Apply theme on mount
+  useEffect(() => {
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      document.documentElement.setAttribute("data-theme", resolvedTheme);
+    }
+  }, [resolvedTheme]);
 
   // Listen for system theme changes when in "system" mode
   useEffect(() => {

@@ -38,7 +38,7 @@ export const projects: Project[] = [
     id: "paperly",
     title: "Paperly PDF Scanner",
     description:
-      "Document scanner with edge detection and filters.",
+      "Document scanner with edge detection, auto-crop, and image filters. Currently in development.",
     image: "/images/projects/paperly.png",
     tags: ["Kotlin", "Jetpack Compose", "OpenCV", "CameraX"],
     featured: false,

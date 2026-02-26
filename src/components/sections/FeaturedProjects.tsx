@@ -6,6 +6,7 @@ import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import { StaggerContainer, StaggerItem } from "@/components/animations/SlideUp";
+import ProjectCardImage from "@/components/ui/ProjectCardImage";
 import { projects } from "@/lib/data/projects";
 import { caseStudies } from "@/lib/data/case-studies";
 
@@ -25,6 +26,7 @@ export default function FeaturedProjects() {
             return (
               <StaggerItem key={project.id}>
                 <Card className="flex h-full flex-col">
+                  <ProjectCardImage projectId={project.id} />
                   <h3 className="text-lg font-semibold text-text">
                     {project.title}
                   </h3>
