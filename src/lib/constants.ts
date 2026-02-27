@@ -24,12 +24,14 @@ export const FOOTER_LINKS = {
     { label: "Home", href: "/" },
     { label: "Projects", href: "/projects" },
     { label: "Services", href: "/services" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Terms", href: "/terms" },
     { label: "Support", href: "/support" },
+    { label: "Delete Account", href: "/delete-account" },
   ],
 };
 

@@ -183,7 +183,7 @@ Service 4 — App Maintenance & Updates
 6. Data sharing — No selling. Third-party SDKs as described.
 7. Data retention — Kept only as long as necessary.
 8. Children — Not intended for under 13.
-9. Contact — nabinpariyar786@gmail.com
+9. Contact — nabin30217@gmail.com
 10. Updates — Latest at nabinpariyar.com.np/privacy-policy
 ```
 
@@ -194,12 +194,12 @@ Service 4 — App Maintenance & Updates
 3. Third-party — Apps may include ads/analytics.
 4. Disclaimer — "As is" without warranties.
 5. Liability — Not liable for indirect damages.
-6. Contact — nabinpariyar786@gmail.com
+6. Contact — nabin30217@gmail.com
 ```
 
 ### Support
 ```
-Email: nabinpariyar786@gmail.com
+Email: nabin30217@gmail.com
 Include: app name, Android version, device model, screenshots
 FAQ:
   - Ads vary by region/device
@@ -211,7 +211,7 @@ FAQ:
 ### Delete Account
 ```
 Steps:
-  1. Email nabinpariyar786@gmail.com with subject "Delete my account/data"
+  1. Email nabin30217@gmail.com with subject "Delete my account/data"
   2. Include app name and email/identifier
   3. Confirmation will be sent
 Deleted: Account profile data, associated app data

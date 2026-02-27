@@ -7,6 +7,9 @@ import Button from "@/components/ui/Button";
 import TypeWriter from "@/components/animations/TypeWriter";
 import TextReveal from "@/components/animations/TextReveal";
 import MagneticButton from "@/components/animations/MagneticButton";
+import TextScramble from "@/components/animations/TextScramble";
+import AnimatedBackground from "@/components/animations/AnimatedBackground";
+import MorphingShape from "@/components/animations/MorphingShape";
 import { ChevronDownIcon } from "@/components/ui/Icons";
 
 const stagger = {
@@ -36,14 +39,19 @@ export default function Hero() {
   // Parallax: orbs move slower than scroll
   const orbY1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const orbY2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const orbY3 = useTransform(scrollYProgress, [0, 1], [0, -200]);
   // Content fades/moves on scroll
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={sectionRef} className="relative flex min-h-screen items-center overflow-hidden">
-      {/* Parallax gradient orbs */}
+    <section
+      ref={sectionRef}
+      className="noise-animated relative flex min-h-screen items-center overflow-hidden"
+    >
+      {/* Floating geometric shapes */}
+      <AnimatedBackground className="z-[1]" />
+
+      {/* Parallax gradient orbs (keeping 2 for depth) */}
       <div className="pointer-events-none absolute inset-0">
         <motion.div
           style={{ y: orbY1 }}
@@ -52,10 +60,6 @@ export default function Hero() {
         <motion.div
           style={{ y: orbY2 }}
           className="animate-blob-delay-2 absolute -bottom-40 left-1/4 h-80 w-80 rounded-full bg-accent-secondary/8 blur-3xl"
-        />
-        <motion.div
-          style={{ y: orbY3 }}
-          className="animate-blob-delay-4 absolute top-1/3 -left-20 h-64 w-64 rounded-full bg-accent/5 blur-3xl"
         />
       </div>
 
@@ -74,64 +78,96 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--bg)_70%)]" />
 
       {/* Content with parallax fade */}
-      <motion.div style={{ y: contentY, opacity: contentOpacity }} className="relative z-10 w-full">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-10 w-full"
+      >
         <Container>
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-            className="max-w-3xl"
-          >
-            <motion.p
-              variants={fadeUp}
-              className="text-sm font-medium tracking-widest text-accent uppercase"
+          <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+            {/* Left column — Text */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={stagger}
+              className="max-w-xl"
             >
-              Hi, I&apos;m
-            </motion.p>
+              <motion.p
+                variants={fadeUp}
+                className="text-sm font-medium tracking-widest text-accent uppercase"
+              >
+                Hi, I&apos;m
+              </motion.p>
 
-            {/* Split text reveal for name */}
-            <motion.div variants={fadeUp}>
-              <TextReveal
-                text="Nabin Pariyar"
-                as="h1"
-                className="mt-3 text-5xl font-bold tracking-tight text-text sm:text-6xl lg:text-7xl"
-                splitBy="char"
-                delay={0.4}
-              />
+              {/* Split text reveal for name */}
+              <motion.div variants={fadeUp}>
+                <TextReveal
+                  text="Nabin Pariyar"
+                  as="h1"
+                  className="gradient-text-animated mt-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl"
+                  splitBy="char"
+                  delay={0.4}
+                />
+              </motion.div>
+
+              {/* Scramble subtitle then TypeWriter */}
+              <motion.div
+                variants={fadeUp}
+                className="mt-6 h-8 text-lg text-text-muted sm:text-xl"
+              >
+                <TextScramble
+                  text="Mobile & Web Systems Engineer"
+                  className="font-semibold text-accent"
+                  duration={1200}
+                />
+              </motion.div>
+
+              <motion.div
+                variants={fadeUp}
+                className="mt-2 h-8 text-lg text-text-muted sm:text-xl"
+              >
+                <TypeWriter
+                  words={[
+                    "Android Developer",
+                    "3 Apps on Google Play Store",
+                    "Next.js Enthusiast",
+                    "Learning. Shipping. Growing.",
+                  ]}
+                  className="font-semibold text-accent-secondary"
+                />
+              </motion.div>
+
+              <motion.p
+                variants={fadeUp}
+                className="mt-6 max-w-xl text-lg leading-8 text-text-muted"
+              >
+                Self-taught developer from Nepal with 3 published apps on the
+                Play Store. I build Android apps with Kotlin and Jetpack
+                Compose, and I&apos;m currently expanding into web development
+                with Next.js.
+              </motion.p>
+
+              <motion.div variants={fadeUp} className="mt-10 flex gap-4">
+                <MagneticButton>
+                  <Button href="/projects">View Projects</Button>
+                </MagneticButton>
+                <MagneticButton>
+                  <Button href="/contact" variant="outline">
+                    Get in Touch
+                  </Button>
+                </MagneticButton>
+              </motion.div>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-6 h-8 text-lg text-text-muted sm:text-xl">
-              <TypeWriter
-                words={[
-                  "Mobile & Web Systems Engineer",
-                  "Android Developer",
-                  "3 Apps on Google Play Store",
-                  "Learning. Shipping. Growing.",
-                ]}
-                className="font-semibold text-accent"
-              />
-            </motion.div>
-
-            <motion.p
-              variants={fadeUp}
-              className="mt-6 max-w-xl text-lg leading-8 text-text-muted"
+            {/* Right column — Morphing Shape */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
+              className="hidden lg:block"
             >
-              Self-taught developer from Nepal with 3 published apps on the Play
-              Store. I build Android apps with Kotlin and Jetpack Compose, and
-              I&apos;m currently expanding into web development with Next.js.
-            </motion.p>
-
-            <motion.div variants={fadeUp} className="mt-10 flex gap-4">
-              <MagneticButton>
-                <Button href="/projects">View Projects</Button>
-              </MagneticButton>
-              <MagneticButton>
-                <Button href="/contact" variant="outline">
-                  Get in Touch
-                </Button>
-              </MagneticButton>
+              <MorphingShape className="h-[500px] w-full" />
             </motion.div>
-          </motion.div>
+          </div>
         </Container>
       </motion.div>
 
@@ -142,12 +178,19 @@ export default function Hero() {
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{
           opacity: { delay: 1.5, duration: 0.5 },
-          y: { delay: 1.5, duration: 1.5, repeat: Infinity, ease: "easeInOut" },
+          y: {
+            delay: 1.5,
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          },
         }}
       >
         <div className="flex flex-col items-center gap-2">
-          <span className="text-xs font-medium tracking-widest text-text-muted/70 uppercase">Scroll</span>
-          <ChevronDownIcon className="h-5 w-5 text-text-muted/70" />
+          <span className="text-xs font-medium tracking-widest text-accent-warm/70 uppercase">
+            Scroll
+          </span>
+          <ChevronDownIcon className="h-5 w-5 text-accent-warm/70" />
         </div>
       </motion.div>
     </section>

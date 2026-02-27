@@ -267,7 +267,7 @@ Sections:
   6. Data sharing
   7. Data retention & deletion
   8. Children's privacy
-  9. Contact: nabinpariyar786@gmail.com
+  9. Contact: nabin30217@gmail.com
   10. Updates to this policy
 ```
 

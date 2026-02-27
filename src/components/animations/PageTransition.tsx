@@ -19,7 +19,7 @@ const pageVariants = {
     opacity: 0,
     y: -8,
     filter: "blur(4px)",
-    transition: { duration: 0.2, ease: "easeIn" as const },
+    transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
   },
 };
 

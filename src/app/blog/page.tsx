@@ -17,10 +17,10 @@ export default function BlogPage() {
       </div>
       <h1 className="text-4xl font-bold tracking-tight text-text">Blog</h1>
       <p className="mt-4 max-w-md text-lg text-text-muted">
-        Articles coming soon!
+        Blog coming soon!
       </p>
-      <p className="mt-2 text-sm text-text-muted">
-        This section is under construction. Check back soon!
+      <p className="mt-2 max-w-md text-sm text-text-muted">
+        I&apos;ll be writing about Android development, web engineering, and lessons learned from building and publishing apps on the Play Store.
       </p>
       <div className="mt-8">
         <Button href="/" variant="outline">&larr; Back to Home</Button>

@@ -7,6 +7,7 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "Services", href: "/services" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -14,11 +15,20 @@ const legalLinks = [
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms", href: "/terms" },
   { label: "Support", href: "/support" },
+  { label: "Delete Account", href: "/delete-account" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="relative bg-surface">
+      {/* Animated gradient top border */}
+      <div className="h-px w-full overflow-hidden">
+        <div
+          className="h-full w-[200%] bg-gradient-to-r from-accent via-accent-secondary to-accent-warm animate-[gradient-slide_4s_linear_infinite]"
+          style={{ backgroundSize: "200% auto" }}
+        />
+      </div>
+
       <Container className="py-12">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           {/* Brand */}
@@ -27,8 +37,8 @@ export default function Footer() {
               {SITE_CONFIG.name}
             </Link>
             <p className="mt-3 text-sm text-text-muted">
-              Android &amp; web developer from Nepal. Building useful apps
-              for the Play Store and the web.
+              Android &amp; web developer from Nepal. Building useful apps for
+              the Play Store and the web.
             </p>
           </div>
 
@@ -40,7 +50,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-text-muted transition-colors hover:text-accent"
+                    className="link-underline text-sm text-text-muted transition-colors hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -57,7 +67,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-text-muted transition-colors hover:text-accent"
+                    className="link-underline text-sm text-text-muted transition-colors hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -70,7 +80,8 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex items-center justify-between border-t border-border pt-6">
           <p className="text-sm text-text-muted">
-            &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
+            &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights
+            reserved.
           </p>
           <a
             href={SOCIAL_LINKS.github}

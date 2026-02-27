@@ -13,6 +13,11 @@ export interface Project {
   featured: boolean;
 }
 
+export interface CaseStudySection {
+  title: string;
+  content: string;
+}
+
 export interface CaseStudy {
   slug: string;
   title: string;
@@ -20,7 +25,7 @@ export interface CaseStudy {
   coverImage: string;
   tags: string[];
   publishedAt: string;
-  content: string;
+  sections: CaseStudySection[];
 }
 
 export interface Service {

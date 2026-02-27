@@ -52,10 +52,10 @@ export default function Navbar() {
             >
               {SITE_CONFIG.name}
             </Link>
-            <span className="hidden items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-400 sm:flex">
+            <span className="hidden items-center gap-1.5 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-2.5 py-1 text-xs font-medium text-accent-emerald shadow-[0_0_12px_rgba(16,185,129,0.15)] sm:flex">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-emerald opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-emerald" />
               </span>
               Available for Work
             </span>
@@ -68,7 +68,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
-                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${pathname === link.href
+                className={`link-underline rounded-lg px-3 py-2 text-sm font-medium transition-colors ${pathname === link.href
                   ? "text-accent"
                   : "text-text-muted hover:text-accent-hover"
                   }`}

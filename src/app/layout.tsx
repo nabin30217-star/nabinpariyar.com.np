@@ -6,7 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/animations/PageTransition";
 import ScrollProgress from "@/components/animations/ScrollProgress";
-import CursorFollower from "@/components/animations/CursorFollower";
+import DynamicCursorFollower from "@/components/animations/DynamicCursorFollower";
 import { SITE_CONFIG } from "@/lib/constants";
 
 const inter = Inter({
@@ -73,7 +73,7 @@ export default function RootLayout({
             Skip to content
           </a>
           <ScrollProgress />
-          <CursorFollower />
+          <DynamicCursorFollower />
           <Navbar />
           <main id="main-content" className="min-h-screen">
             <PageTransition>{children}</PageTransition>

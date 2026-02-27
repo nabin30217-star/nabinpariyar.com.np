@@ -47,6 +47,7 @@ function FAQItem({
         <StaggerItem direction={index % 2 === 0 ? "left" : "right"}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
+                aria-expanded={isOpen}
                 className="w-full cursor-pointer rounded-xl border border-border bg-card p-5 text-left transition-all duration-300 hover:border-accent/30"
             >
                 <div className="flex items-center justify-between">
