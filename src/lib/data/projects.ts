@@ -43,14 +43,4 @@ export const projects: Project[] = [
     tags: ["Kotlin", "Jetpack Compose", "OpenCV", "CameraX"],
     featured: false,
   },
-  {
-    id: "portfolio",
-    title: "nabinpariyar.com.np",
-    description:
-      "Personal portfolio website built with modern web technologies.",
-    image: "/images/projects/portfolio.png",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    liveUrl: "https://nabinpariyar.com.np",
-    featured: false,
-  },
 ];
