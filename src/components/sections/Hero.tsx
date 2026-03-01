@@ -50,6 +50,7 @@ export default function Hero() {
   // Content fades/moves on scroll
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
     <section
@@ -82,7 +83,7 @@ export default function Hero() {
           backgroundImage:
             "linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
-          y: prefersReducedMotion ? 0 : useTransform(scrollYProgress, [0, 1], [0, -50]),
+          y: prefersReducedMotion ? 0 : gridY,
         }}
       />
 

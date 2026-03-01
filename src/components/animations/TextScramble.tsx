@@ -75,7 +75,7 @@ export default function TextScramble({
       observer.disconnect();
       cleanupRef.current?.();
     };
-  }, [triggerOnView, hasTriggered, scramble]);
+  }, [triggerOnView, hasTriggered, scramble, prefersReducedMotion]);
 
   return (
     <span ref={ref} className={className} aria-label={text}>

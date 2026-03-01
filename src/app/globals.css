@@ -413,10 +413,7 @@ body {
   animation: ripple 0.6s ease-out forwards;
 }
 
-/* ─── Smooth Scroll ─── */
-html {
-  scroll-behavior: smooth;
-}
+/* ─── Smooth Scroll handled globally by Lenis React ─── */
 
 /* ─── Reduced Motion: disable all animations ─── */
 @media (prefers-reduced-motion: reduce) {

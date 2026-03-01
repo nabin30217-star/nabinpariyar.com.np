@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/animations/PageTransition";
 import ScrollProgress from "@/components/animations/ScrollProgress";
 import DynamicCursorFollower from "@/components/animations/DynamicCursorFollower";
+import SmoothScroll from "@/components/animations/SmoothScroll";
 import { SITE_CONFIG } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -67,23 +68,25 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ThemeProvider>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only fixed top-2 left-2 z-[100] rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-accent/50"
-          >
-            Skip to content
-          </a>
-          <ScrollProgress />
-          <DynamicCursorFollower />
-          <Navbar />
-          <main id="main-content" className="min-h-screen">
-            <PageTransition>{children}</PageTransition>
-          </main>
-          <Footer />
-          <Analytics />
-          <SpeedInsights />
-        </ThemeProvider>
+        <SmoothScroll>
+          <ThemeProvider>
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only fixed top-2 left-2 z-[100] rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-accent/50"
+            >
+              Skip to content
+            </a>
+            <ScrollProgress />
+            <DynamicCursorFollower />
+            <Navbar />
+            <main id="main-content" className="min-h-screen">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer />
+            <Analytics />
+            <SpeedInsights />
+          </ThemeProvider>
+        </SmoothScroll>
       </body>
     </html>
   );
