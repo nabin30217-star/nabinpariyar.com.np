@@ -19,6 +19,11 @@ export async function generateMetadata({
     const { slug } = await params;
     const post = getBlogPost(slug);
     if (!post) return {};
+
+    return {
+        title: post.title,
+        description: post.description,
+    };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {

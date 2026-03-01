@@ -21,6 +21,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) return {};
+
+  return {
+    title: study.title,
+    description: study.description,
+  };
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
