@@ -1,0 +1,274 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - navigation [ref=e5]:
+      - generic [ref=e6]:
+        - link "Nabin Pariyar" [ref=e7] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e8]: Available for Work
+      - generic [ref=e12]:
+        - link "Home" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - link "About" [ref=e14] [cursor=pointer]:
+          - /url: /about
+        - link "Projects" [active] [ref=e15] [cursor=pointer]:
+          - /url: /projects
+        - link "Case Studies" [ref=e16] [cursor=pointer]:
+          - /url: /case-studies
+        - link "Services" [ref=e17] [cursor=pointer]:
+          - /url: /services
+        - link "Contact" [ref=e18] [cursor=pointer]:
+          - /url: /contact
+        - button "Toggle theme" [ref=e19] [cursor=pointer]:
+          - img [ref=e20]
+  - main [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic:
+          - generic:
+            - img
+          - generic:
+            - img
+          - generic:
+            - img
+          - generic:
+            - img
+        - generic [ref=e27]:
+          - generic [ref=e28]:
+            - paragraph [ref=e29]: Hi, I'm
+            - heading "N a b i n P a r i y a r" [level=1] [ref=e32]:
+              - generic [ref=e33]: "N"
+              - generic [ref=e34]: a
+              - generic [ref=e35]: b
+              - generic [ref=e36]: i
+              - generic [ref=e37]: "n"
+              - generic [ref=e39]: P
+              - generic [ref=e40]: a
+              - generic [ref=e41]: r
+              - generic [ref=e42]: i
+              - generic [ref=e43]: "y"
+              - generic [ref=e44]: a
+              - generic [ref=e45]: r
+            - generic [ref=e48]: "|"
+            - paragraph [ref=e49]: Self-taught developer from Nepal with 3 published apps on the Play Store. I build Android apps with Kotlin and Jetpack Compose, and I'm currently expanding into web development with Next.js.
+            - generic [ref=e50]:
+              - link "View Projects" [ref=e52] [cursor=pointer]:
+                - /url: /projects
+                - generic [ref=e53]: View Projects
+              - link "Get in Touch" [ref=e55] [cursor=pointer]:
+                - /url: /contact
+                - generic [ref=e56]: Get in Touch
+          - img [ref=e59]
+        - generic [ref=e64]:
+          - generic [ref=e65]: Scroll
+          - img [ref=e66]
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - heading "By the Numbers" [level=2] [ref=e71]
+          - paragraph [ref=e74]: What I've accomplished in my journey so far
+        - generic [ref=e75]:
+          - generic [ref=e80]:
+            - img [ref=e82]
+            - generic [ref=e84]: "0"
+            - paragraph [ref=e85]: Apps on Play Store
+          - generic [ref=e90]:
+            - img [ref=e92]
+            - generic [ref=e95]: 0 mo
+            - paragraph [ref=e96]: Self-Taught Journey
+          - generic [ref=e101]:
+            - img [ref=e103]
+            - generic [ref=e106]: 0K+
+            - paragraph [ref=e107]: Lines of Kotlin
+          - generic [ref=e112]:
+            - img [ref=e114]
+            - generic [ref=e116]: "0"
+            - paragraph [ref=e117]: Portfolio Website Built
+      - generic [ref=e119]:
+        - heading "What I Build" [level=2] [ref=e121]
+        - generic [ref=e124]:
+          - generic [ref=e128]:
+            - img [ref=e130]
+            - heading "Android Apps" [level=3] [ref=e132]
+            - paragraph [ref=e133]: Native Android apps with Kotlin, Jetpack Compose, and modern architecture patterns. Published on Google Play Store.
+            - generic:
+              - generic [ref=e134]: Kotlin
+              - generic [ref=e135]: Jetpack Compose
+              - generic [ref=e136]: Material 3
+              - generic [ref=e137]: Room DB
+              - generic [ref=e138]: Coroutines
+          - generic [ref=e142]:
+            - img [ref=e144]
+            - heading "Web Applications" [level=3] [ref=e146]
+            - paragraph [ref=e147]: Modern web applications with Next.js, TypeScript, and Tailwind CSS. Fast, responsive, and SEO-optimized.
+            - generic:
+              - generic [ref=e148]: Next.js
+              - generic [ref=e149]: TypeScript
+              - generic [ref=e150]: Tailwind CSS
+              - generic [ref=e151]: React
+              - generic [ref=e152]: Framer Motion
+          - generic [ref=e156]:
+            - img [ref=e158]
+            - heading "Backend & Tooling" [level=3] [ref=e160]
+            - paragraph [ref=e161]: REST APIs, Firebase integrations, CI/CD pipelines, and the tooling that connects apps to the cloud.
+            - generic:
+              - generic [ref=e162]: Firebase
+              - generic [ref=e163]: REST APIs
+              - generic [ref=e164]: CI/CD
+              - generic [ref=e165]: Git
+              - generic [ref=e166]: Node.js
+      - generic [ref=e168]:
+        - generic [ref=e169]:
+          - heading "Featured Projects" [level=2] [ref=e170]
+          - paragraph [ref=e173]: Some things I've built
+        - generic [ref=e174]:
+          - generic [ref=e176]:
+            - img "smart calculator" [ref=e178]
+            - heading "Smart Calculator – All in One" [level=3] [ref=e179]
+            - paragraph [ref=e180]: Advanced calculator with 15+ tools including scientific mode, unit converter, and tip calculator. Built a custom recursive descent parser for expression evaluation — no heavy math libraries needed. Under 5MB APK size.
+            - generic [ref=e181]:
+              - generic [ref=e182]: Kotlin
+              - generic [ref=e183]: Jetpack Compose
+              - generic [ref=e184]: Material 3
+              - generic [ref=e185]: MVVM
+            - generic [ref=e186]:
+              - link "View Smart Calculator – All in One on Google Play" [ref=e187] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=smartcalculator.calculators
+                - img [ref=e188]
+                - text: Google Play
+              - link "Read case study for Smart Calculator – All in One" [ref=e190] [cursor=pointer]:
+                - /url: /case-studies/smart-calculator
+                - text: Case Study →
+          - generic [ref=e192]:
+            - img "vixit" [ref=e194]
+            - heading "Vixit Video Compressor & Tools" [level=3] [ref=e195]
+            - paragraph [ref=e196]: Video toolkit with FFmpeg-powered compression, format conversion, audio extraction, and trimming. Implemented background processing with WorkManager so users can multitask while videos convert.
+            - generic [ref=e197]:
+              - generic [ref=e198]: Kotlin
+              - generic [ref=e199]: Jetpack Compose
+              - generic [ref=e200]: FFmpeg
+              - generic [ref=e201]: WorkManager
+            - generic [ref=e202]:
+              - link "View Vixit Video Compressor & Tools on Google Play" [ref=e203] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=com.vixit.studio.converter
+                - img [ref=e204]
+                - text: Google Play
+              - link "Read case study for Vixit Video Compressor & Tools" [ref=e206] [cursor=pointer]:
+                - /url: /case-studies/vixit
+                - text: Case Study →
+          - generic [ref=e208]:
+            - img "samsung tv remote" [ref=e210]
+            - heading "Samsung TV Remote – Wi-Fi & IR" [level=3] [ref=e211]
+            - paragraph [ref=e212]: Dual-mode TV remote supporting both IR blaster hardware and Wi-Fi network control. Implemented Samsung's WebSocket-based WoL protocol for network discovery and UPnP for device pairing — no Samsung SDK required.
+            - generic [ref=e213]:
+              - generic [ref=e214]: Kotlin
+              - generic [ref=e215]: IR Blaster API
+              - generic [ref=e216]: Wi-Fi Direct
+              - generic [ref=e217]: WebSocket
+            - generic [ref=e218]:
+              - link "View Samsung TV Remote – Wi-Fi & IR on Google Play" [ref=e219] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=com.smart.samtvremote
+                - img [ref=e220]
+                - text: Google Play
+              - link "Read case study for Samsung TV Remote – Wi-Fi & IR" [ref=e222] [cursor=pointer]:
+                - /url: /case-studies/samsung-tv-remote
+                - text: Case Study →
+        - generic [ref=e223]:
+          - generic "Want to see more?" [ref=e224]
+          - link "View All Projects →" [ref=e225] [cursor=pointer]:
+            - /url: /projects
+            - generic [ref=e226]: View All Projects →
+      - generic [ref=e228]:
+        - heading "Engineering Philosophy" [level=2] [ref=e230]
+        - blockquote [ref=e234]:
+          - paragraph [ref=e235]: “Great software should feel invisible — fast, intuitive, and reliable.”
+        - generic [ref=e236]:
+          - generic [ref=e240]:
+            - img [ref=e242]
+            - heading "Build What People Use" [level=3] [ref=e244]
+            - paragraph [ref=e245]: Every app I build starts with a real problem. If it doesn't help someone, it's not worth shipping.
+          - generic [ref=e249]:
+            - img [ref=e251]
+            - heading "Learn by Doing" [level=3] [ref=e253]
+            - paragraph [ref=e254]: I went from zero Kotlin to 3 Play Store apps by building, breaking, and fixing — not just reading docs.
+          - generic [ref=e258]:
+            - img [ref=e260]
+            - heading "Keep It Simple" [level=3] [ref=e262]
+            - paragraph [ref=e263]: The best apps feel effortless. I focus on clean UI, fast performance, and no unnecessary complexity.
+      - generic [ref=e264]:
+        - generic:
+          - generic:
+            - img
+          - generic:
+            - img
+        - generic [ref=e267]:
+          - heading "Let's Work Together" [level=2] [ref=e269]:
+            - generic [ref=e270]: Let's
+            - generic [ref=e271]: Work
+            - generic [ref=e272]: Together
+          - paragraph [ref=e273]: Have an app idea or project in mind? I'm open to collaborations and interesting work. Let's talk.
+          - generic [ref=e274]:
+            - link "nabin30217@gmail.com" [ref=e275] [cursor=pointer]:
+              - /url: mailto:nabin30217@gmail.com
+            - link "GitHub →" [ref=e276] [cursor=pointer]:
+              - /url: https://github.com/nabin30217-star
+          - link "Get in Touch" [ref=e279] [cursor=pointer]:
+            - /url: /contact
+            - generic [ref=e280]: Get in Touch
+  - contentinfo [ref=e281]:
+    - generic [ref=e284]:
+      - generic [ref=e285]:
+        - generic [ref=e286]:
+          - link "Nabin Pariyar" [ref=e287] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e288]: Android & web developer from Nepal. Building useful apps for the Play Store and the web.
+        - generic [ref=e289]:
+          - heading "Quick Links" [level=3] [ref=e290]
+          - list [ref=e291]:
+            - listitem [ref=e292]:
+              - link "Home" [ref=e293] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e294]:
+              - link "Projects" [ref=e295] [cursor=pointer]:
+                - /url: /projects
+            - listitem [ref=e296]:
+              - link "Services" [ref=e297] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e298]:
+              - link "Blog" [ref=e299] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e300]:
+              - link "Contact" [ref=e301] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e302]:
+          - heading "Legal" [level=3] [ref=e303]
+          - list [ref=e304]:
+            - listitem [ref=e305]:
+              - link "Privacy Policy" [ref=e306] [cursor=pointer]:
+                - /url: /privacy-policy
+            - listitem [ref=e307]:
+              - link "Terms" [ref=e308] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e309]:
+              - link "Support" [ref=e310] [cursor=pointer]:
+                - /url: /support
+            - listitem [ref=e311]:
+              - link "Delete Account" [ref=e312] [cursor=pointer]:
+                - /url: /delete-account
+      - generic [ref=e313]:
+        - paragraph [ref=e314]: © 2026 Nabin Pariyar. All rights reserved.
+        - link "GitHub" [ref=e315] [cursor=pointer]:
+          - /url: https://github.com/nabin30217-star
+          - img [ref=e316]
+  - button "Open Next.js Dev Tools" [ref=e323] [cursor=pointer]:
+    - generic [ref=e326]:
+      - text: Rendering
+      - generic [ref=e327]:
+        - generic [ref=e328]: .
+        - generic [ref=e329]: .
+        - generic [ref=e330]: .
+  - alert [ref=e331]
+```
