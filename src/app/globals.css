@@ -83,6 +83,37 @@ body {
   color: var(--text);
 }
 
+/* ─── Smooth Theme Transitions ─── */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+body,
+header,
+footer,
+main,
+nav,
+section,
+aside,
+article,
+div,
+a,
+button,
+input,
+textarea,
+select {
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease,
+    box-shadow 300ms ease,
+    fill 300ms ease,
+    stroke 300ms ease;
+}
+
 /* ─── Glow Effect Utility ─── */
 .glow {
   box-shadow: 0 0 20px var(--glow), 0 0 60px rgba(59, 130, 246, 0.1);

@@ -5,42 +5,46 @@ export const projects: Project[] = [
     id: "smart-calculator",
     title: "Smart Calculator – All in One",
     description:
-      "Fast calculator with clean UI and useful tools. Features include scientific calculator, unit converter, and more.",
+      "Advanced calculator with 15+ tools including scientific mode, unit converter, and tip calculator. Built a custom recursive descent parser for expression evaluation — no heavy math libraries needed. Under 5MB APK size.",
     image: "/images/projects/smart-calculator.png",
-    tags: ["Kotlin", "Jetpack Compose", "Material 3"],
+    tags: ["Kotlin", "Jetpack Compose", "Material 3", "MVVM"],
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=smartcalculator.calculators",
+    githubUrl: "https://github.com/nabin30217-star",
     featured: true,
   },
   {
     id: "vixit",
     title: "Vixit Video Compressor & Tools",
     description:
-      "All-in-one video toolkit. Convert, compress, trim, and manage videos with an intuitive interface.",
+      "Video toolkit with FFmpeg-powered compression, format conversion, audio extraction, and trimming. Implemented background processing with WorkManager so users can multitask while videos convert.",
     image: "/images/projects/vixit.png",
-    tags: ["Kotlin", "Jetpack Compose", "FFmpeg"],
+    tags: ["Kotlin", "Jetpack Compose", "FFmpeg", "WorkManager"],
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.vixit.studio.converter",
+    githubUrl: "https://github.com/nabin30217-star",
     featured: true,
   },
   {
     id: "samsung-tv-remote",
     title: "Samsung TV Remote – Wi-Fi & IR",
     description:
-      "Control Samsung TVs via IR blaster and Wi-Fi with a simple, intuitive remote layout.",
+      "Dual-mode TV remote supporting both IR blaster hardware and Wi-Fi network control. Implemented Samsung's WebSocket-based WoL protocol for network discovery and UPnP for device pairing — no Samsung SDK required.",
     image: "/images/projects/samsung-tv-remote.png",
-    tags: ["Kotlin", "IR Blaster API", "Wi-Fi Direct"],
+    tags: ["Kotlin", "IR Blaster API", "Wi-Fi Direct", "WebSocket"],
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.smart.samtvremote",
+    githubUrl: "https://github.com/nabin30217-star",
     featured: true,
   },
   {
     id: "paperly",
     title: "Paperly PDF Scanner",
     description:
-      "Document scanner with edge detection, auto-crop, and image filters. Currently in development.",
+      "Document scanner with real-time edge detection using OpenCV, perspective correction, and adaptive image filters. Built a custom CameraX pipeline for high-res capture with automatic document boundary detection.",
     image: "/images/projects/paperly.png",
     tags: ["Kotlin", "Jetpack Compose", "OpenCV", "CameraX"],
+    githubUrl: "https://github.com/nabin30217-star",
     featured: false,
   },
 ];
