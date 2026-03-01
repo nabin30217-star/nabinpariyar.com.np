@@ -77,7 +77,7 @@ export default function TextReveal({
                         className="inline-block"
                         style={{ transformOrigin: "bottom center" }}
                     >
-                        {item}
+                        {item === " " ? "\u00A0" : item}
                         {splitBy === "word" && i < items.length - 1 ? "\u00A0" : ""}
                     </motion.span>
                 ))}
