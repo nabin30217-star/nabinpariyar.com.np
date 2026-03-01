@@ -91,28 +91,6 @@ body {
   color-scheme: light;
 }
 
-body,
-header,
-footer,
-main,
-nav,
-section,
-aside,
-article,
-div,
-a,
-button,
-input,
-textarea,
-select {
-  transition:
-    background-color 300ms ease,
-    border-color 300ms ease,
-    color 300ms ease,
-    box-shadow 300ms ease,
-    fill 300ms ease,
-    stroke 300ms ease;
-}
 
 /* ─── Glow Effect Utility ─── */
 .glow {
@@ -416,29 +394,6 @@ select {
 
 .animate-spin-slow {
   animation: spin-slow 8s linear infinite;
-}
-
-/* ─── Smooth Color Transitions (scoped to structural elements) ─── */
-body,
-header,
-footer,
-main,
-nav,
-section,
-a,
-button,
-input,
-textarea {
-  transition-property: background-color, border-color, color;
-  transition-duration: 200ms;
-  transition-timing-function: ease;
-}
-
-/* Apply to any element that needs theme transition via class */
-.theme-transition {
-  transition-property: background-color, border-color, color;
-  transition-duration: 200ms;
-  transition-timing-function: ease;
 }
 
 /* ─── Ripple Effect ─── */

@@ -46,6 +46,7 @@ export default function ProjectCardImage({ projectId, className = "" }: ProjectC
         alt={projectId.replace(/-/g, " ")}
         width={200}
         height={200}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="h-24 w-24 rounded-2xl object-contain shadow-lg transition-transform duration-500 group-hover/img:scale-110"
       />
     </div>

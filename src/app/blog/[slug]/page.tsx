@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
-import { blogPosts } from "@/lib/data/blog";
+import { getAllBlogPosts, getBlogPost } from "@/lib/data";
 import { notFound } from "next/navigation";
 
 interface BlogPostPageProps {
@@ -10,24 +10,20 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
-    return blogPosts.map((post) => ({ slug: post.slug }));
+    return getAllBlogPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
     params,
 }: BlogPostPageProps): Promise<Metadata> {
     const { slug } = await params;
-    const post = blogPosts.find((p) => p.slug === slug);
+    const post = getBlogPost(slug);
     if (!post) return {};
-    return {
-        title: post.title,
-        description: post.description,
-    };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const { slug } = await params;
-    const post = blogPosts.find((p) => p.slug === slug);
+    const post = getBlogPost(slug);
 
     if (!post) notFound();
 

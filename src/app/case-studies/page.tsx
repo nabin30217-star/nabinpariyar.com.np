@@ -4,7 +4,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
-import { caseStudies } from "@/lib/data/case-studies";
+import { getAllCaseStudies } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Case Studies",
@@ -19,11 +19,11 @@ export default function CaseStudiesPage() {
         subtitle="Deep dives into how I build things"
       />
 
-      {caseStudies.length === 0 ? (
+      {getAllCaseStudies().length === 0 ? (
         <p className="text-text-muted">Case studies coming soon.</p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2">
-          {caseStudies.map((study) => (
+          {getAllCaseStudies().map((study) => (
             <Link key={study.slug} href={`/case-studies/${study.slug}`}>
               <Card className="h-full">
                 <h3 className="text-lg font-semibold text-text">

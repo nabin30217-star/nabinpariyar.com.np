@@ -1,38 +1,39 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { CheckCircleIcon } from "@/components/ui/Icons";
 import { submitContactForm } from "@/app/actions/contact";
-
-interface FormState {
-  name: string;
-  email: string;
-  message: string;
-}
+import { contactSchema, type ContactFormData } from "@/lib/validations/contact";
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
 
 export default function ContactForm() {
-  const [form, setForm] = useState<FormState>({
-    name: "",
-    email: "",
-    message: "",
-  });
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: { name: "", email: "", message: "" },
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
     setStatus("loading");
     setErrorMessage("");
 
-    const result = await submitContactForm(form);
+    const result = await submitContactForm(data);
 
     if (result.success) {
       setStatus("success");
-      setForm({ name: "", email: "", message: "" });
+      reset();
     } else {
       setStatus("error");
       setErrorMessage(result.error || "Something went wrong.");
@@ -61,7 +62,7 @@ export default function ContactForm() {
   return (
     <Card hover={false} className="mt-12">
       <h3 className="mb-6 text-lg font-semibold text-text">Send a Message</h3>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label htmlFor="name" className="mb-1 block text-sm font-medium text-text">
             Name
@@ -69,13 +70,11 @@ export default function ContactForm() {
           <input
             id="name"
             type="text"
-            required
-            minLength={2}
-            value={form.name}
-            onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
+            {...register("name")}
             className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             placeholder="Your name"
           />
+          {errors.name && <p className="mt-1 text-sm text-red-400">{errors.name.message}</p>}
         </div>
 
         <div>
@@ -85,12 +84,11 @@ export default function ContactForm() {
           <input
             id="email"
             type="email"
-            required
-            value={form.email}
-            onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+            {...register("email")}
             className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             placeholder="your@email.com"
           />
+          {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email.message}</p>}
         </div>
 
         <div>
@@ -99,21 +97,19 @@ export default function ContactForm() {
           </label>
           <textarea
             id="message"
-            required
-            minLength={10}
             rows={5}
-            value={form.message}
-            onChange={(e) => setForm((prev) => ({ ...prev, message: e.target.value }))}
+            {...register("message")}
             className="w-full resize-none rounded-lg border border-border bg-surface px-4 py-3 text-sm text-text placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             placeholder="Tell me about your project or idea..."
           />
+          {errors.message && <p className="mt-1 text-sm text-red-400">{errors.message.message}</p>}
         </div>
 
         {status === "error" && (
           <p className="text-sm text-red-400">{errorMessage}</p>
         )}
 
-        <Button type="submit" variant="primary" className="w-full">
+        <Button type="submit" variant="primary" className="w-full" disabled={status === "loading"}>
           {status === "loading" ? "Sending..." : "Send Message"}
         </Button>
       </form>

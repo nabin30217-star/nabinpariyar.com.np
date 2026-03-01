@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 /* ── Direction variants ── */
 type Direction = "up" | "down" | "left" | "right";
@@ -92,7 +92,13 @@ export default function SlideUp({
   direction = "up",
   scale = false,
 }: SlideUpProps) {
+  const prefersReducedMotion = useReducedMotion();
   const variants = makeItemVariants(direction, scale);
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -125,6 +131,12 @@ export function ScaleIn({
   delay?: number;
   className?: string;
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -157,6 +169,12 @@ export function ClipReveal({
   delay?: number;
   className?: string;
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -189,6 +207,12 @@ export function RotateIn({
   delay?: number;
   className?: string;
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -219,6 +243,12 @@ export function StaggerContainer({
   children: React.ReactNode;
   className?: string;
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -244,6 +274,12 @@ export function StaggerItem({
   direction?: Direction;
   scale?: boolean;
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div variants={makeItemVariants(direction, scale)} className={className}>
       {children}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useReducedMotion } from "framer-motion";
 
 interface TypeWriterProps {
   words: string[];
@@ -15,12 +16,14 @@ export default function TypeWriter({
   speed = 80,
   deleteSpeed = 40,
 }: TypeWriterProps) {
+  const prefersReducedMotion = useReducedMotion();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const word = words[currentWordIndex];
 
     const timeout = setTimeout(
@@ -48,7 +51,11 @@ export default function TypeWriter({
         pauseTimeoutRef.current = null;
       }
     };
-  }, [currentText, isDeleting, currentWordIndex, words, speed, deleteSpeed]);
+  }, [currentText, isDeleting, currentWordIndex, words, speed, deleteSpeed, prefersReducedMotion]);
+
+  if (prefersReducedMotion) {
+    return <span className={className}>{words[0]}</span>;
+  }
 
   return (
     <span className={className}>

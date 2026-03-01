@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 interface HorizontalScrollProps {
   children: React.ReactNode;
@@ -14,6 +14,7 @@ export default function HorizontalScroll({
   className = "",
   screens = 3,
 }: HorizontalScrollProps) {
+  const prefersReducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -25,6 +26,16 @@ export default function HorizontalScroll({
     [0, 1],
     ["0%", `-${((screens - 1) / screens) * 100}%`]
   );
+
+  if (prefersReducedMotion) {
+    return (
+      <div className={className}>
+        <div className="flex flex-wrap">
+          {children}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

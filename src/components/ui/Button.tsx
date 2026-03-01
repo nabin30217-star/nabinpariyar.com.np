@@ -20,6 +20,7 @@ interface ButtonProps {
   onClick?: () => void;
   type?: "button" | "submit";
   external?: boolean;
+  disabled?: boolean;
 }
 
 const colorVariants = {
@@ -59,6 +60,7 @@ export default function Button({
   onClick,
   type = "button",
   external = false,
+  disabled = false,
 }: ButtonProps) {
   const ref = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
   const [ripple, setRipple] = useState<RippleStyle | null>(null);
@@ -141,9 +143,10 @@ export default function Button({
     <button
       type={type}
       onClick={onClick}
-      className={classes}
+      className={`${classes} ${disabled ? "cursor-not-allowed opacity-50" : ""}`}
       ref={ref as React.Ref<HTMLButtonElement>}
-      onMouseDown={handleRipple}
+      onMouseDown={disabled ? undefined : handleRipple}
+      disabled={disabled}
     >
       {content}
     </button>

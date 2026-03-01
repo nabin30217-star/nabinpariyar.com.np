@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 interface TextRevealProps {
     text: string;
@@ -57,8 +57,13 @@ export default function TextReveal({
     splitBy = "word",
     as: Tag = "p",
 }: TextRevealProps) {
+    const prefersReducedMotion = useReducedMotion();
     const items = splitBy === "word" ? text.split(" ") : text.split("");
     const variants = splitBy === "word" ? wordVariants : charVariants;
+
+    if (prefersReducedMotion) {
+        return <Tag className={className}>{text}</Tag>;
+    }
 
     return (
         <motion.div
@@ -100,12 +105,13 @@ export function CountUp({
     suffix = "",
     className = "",
 }: CountUpProps) {
-    const [count, setCount] = useState(0);
+    const prefersReducedMotion = useReducedMotion();
+    const [count, setCount] = useState(prefersReducedMotion ? target : 0);
     const [hasStarted, setHasStarted] = useState(false);
     const spanRef = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
-        if (!spanRef.current) return;
+        if (prefersReducedMotion || !spanRef.current) return;
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -117,10 +123,10 @@ export function CountUp({
         );
         observer.observe(spanRef.current);
         return () => observer.disconnect();
-    }, []);
+    }, [prefersReducedMotion]);
 
     useEffect(() => {
-        if (!hasStarted) return;
+        if (prefersReducedMotion || !hasStarted) return;
         let startTime: number;
         let frame: number;
         const animate = (timestamp: number) => {
@@ -135,7 +141,7 @@ export function CountUp({
         };
         frame = requestAnimationFrame(animate);
         return () => cancelAnimationFrame(frame);
-    }, [hasStarted, target, duration]);
+    }, [hasStarted, target, duration, prefersReducedMotion]);
 
     return (
         <span ref={spanRef} className={className}>

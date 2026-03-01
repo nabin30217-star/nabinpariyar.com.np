@@ -58,9 +58,11 @@ export default function FeaturedProjects() {
                           href={project.playStoreUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent transition-colors hover:bg-accent/20"
+                          aria-label={`View ${project.title} on Google Play`}
+                          className="inline-flex items-center gap-2 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent transition-colors hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                         >
                           <svg
+                            aria-hidden="true"
                             className="h-4 w-4"
                             viewBox="0 0 24 24"
                             fill="currentColor"
@@ -73,7 +75,8 @@ export default function FeaturedProjects() {
                       {hasCaseStudy && (
                         <a
                           href={`/case-studies/${project.id}`}
-                          className="link-underline inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:border-accent/30 hover:text-accent"
+                          aria-label={`Read case study for ${project.title}`}
+                          className="link-underline inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:border-accent/30 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                         >
                           Case Study &rarr;
                         </a>
@@ -121,9 +124,11 @@ export default function FeaturedProjects() {
                         href={project.playStoreUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent transition-colors hover:bg-accent/20"
+                        aria-label={`View ${project.title} on Google Play`}
+                        className="inline-flex items-center gap-2 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent transition-colors hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                       >
                         <svg
+                          aria-hidden="true"
                           className="h-4 w-4"
                           viewBox="0 0 24 24"
                           fill="currentColor"
@@ -136,7 +141,8 @@ export default function FeaturedProjects() {
                     {hasCaseStudy && (
                       <a
                         href={`/case-studies/${project.id}`}
-                        className="link-underline inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:border-accent/30 hover:text-accent"
+                        aria-label={`Read case study for ${project.title}`}
+                        className="link-underline inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:border-accent/30 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                       >
                         Case Study &rarr;
                       </a>

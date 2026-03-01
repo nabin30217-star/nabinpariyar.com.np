@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useReducedMotion } from "framer-motion";
 
 interface TextScrambleProps {
   text: string;
@@ -17,7 +18,8 @@ export default function TextScramble({
   duration = 1500,
   triggerOnView = true,
 }: TextScrambleProps) {
-  const [displayText, setDisplayText] = useState(triggerOnView ? "\u00A0".repeat(text.length) : text);
+  const prefersReducedMotion = useReducedMotion();
+  const [displayText, setDisplayText] = useState(triggerOnView && !prefersReducedMotion ? "\u00A0".repeat(text.length) : text);
   const [hasTriggered, setHasTriggered] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
@@ -54,7 +56,7 @@ export default function TextScramble({
   }, [text, chars, duration]);
 
   useEffect(() => {
-    if (!triggerOnView || !ref.current) return;
+    if (prefersReducedMotion || !triggerOnView || !ref.current) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {

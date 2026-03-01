@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface TiltCardProps {
   children: React.ReactNode;
@@ -20,10 +20,11 @@ export default function TiltCard({
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const [glarePos, setGlarePos] = useState({ x: 50, y: 50 });
+  const prefersReducedMotion = useReducedMotion();
 
   const updateTilt = useCallback(
     (clientX: number, clientY: number) => {
-      if (!ref.current) return;
+      if (!ref.current || prefersReducedMotion) return;
       const rect = ref.current.getBoundingClientRect();
       const x = (clientX - rect.left) / rect.width;
       const y = (clientY - rect.top) / rect.height;
@@ -32,7 +33,7 @@ export default function TiltCard({
       setRotateY((x - 0.5) * maxTilt);
       setGlarePos({ x: x * 100, y: y * 100 });
     },
-    [maxTilt]
+    [maxTilt, prefersReducedMotion]
   );
 
   const resetTilt = useCallback(() => {
@@ -57,6 +58,16 @@ export default function TiltCard({
     },
     [updateTilt]
   );
+
+  if (prefersReducedMotion) {
+    return (
+      <div
+        className={`relative overflow-hidden rounded-xl border border-border bg-card ${className}`}
+      >
+        {children}
+      </div>
+    );
+  }
 
   return (
     <motion.div

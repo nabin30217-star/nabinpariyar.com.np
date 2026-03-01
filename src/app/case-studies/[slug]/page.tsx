@@ -4,7 +4,7 @@ import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
-import { caseStudies } from "@/lib/data/case-studies";
+import { getAllCaseStudies, getCaseStudy } from "@/lib/data";
 import { notFound } from "next/navigation";
 
 interface CaseStudyPageProps {
@@ -12,24 +12,20 @@ interface CaseStudyPageProps {
 }
 
 export async function generateStaticParams() {
-  return caseStudies.map((study) => ({ slug: study.slug }));
+  return getAllCaseStudies().map((study) => ({ slug: study.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: CaseStudyPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const study = caseStudies.find((s) => s.slug === slug);
+  const study = getCaseStudy(slug);
   if (!study) return {};
-  return {
-    title: study.title,
-    description: study.description,
-  };
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   const { slug } = await params;
-  const study = caseStudies.find((s) => s.slug === slug);
+  const study = getCaseStudy(slug);
 
   if (!study) notFound();
 
@@ -46,6 +42,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             alt={study.title}
             width={64}
             height={64}
+            sizes="64px"
             className="h-16 w-16 rounded-2xl shadow-lg"
           />
           <div>

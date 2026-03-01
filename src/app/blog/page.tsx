@@ -3,7 +3,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
-import { blogPosts } from "@/lib/data/blog";
+import { getAllBlogPosts } from "@/lib/data";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function BlogPage() {
       />
 
       <div className="grid gap-6">
-        {blogPosts.map((post) => (
+        {getAllBlogPosts().map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
             <Card className="group h-full transition-all hover:border-accent/40">
               <div className="flex flex-wrap items-center gap-3 text-xs text-text-muted">

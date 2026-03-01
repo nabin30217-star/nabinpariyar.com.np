@@ -1,15 +1,22 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
+import dynamic from "next/dynamic";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import TypeWriter from "@/components/animations/TypeWriter";
 import TextReveal from "@/components/animations/TextReveal";
 import MagneticButton from "@/components/animations/MagneticButton";
 import TextScramble from "@/components/animations/TextScramble";
-import AnimatedBackground from "@/components/animations/AnimatedBackground";
-import MorphingShape from "@/components/animations/MorphingShape";
+const AnimatedBackground = dynamic(
+  () => import("@/components/animations/AnimatedBackground"),
+  { ssr: false }
+);
+const MorphingShape = dynamic(
+  () => import("@/components/animations/MorphingShape"),
+  { ssr: false }
+);
 import { ChevronDownIcon } from "@/components/ui/Icons";
 
 const stagger = {
@@ -35,6 +42,7 @@ export default function Hero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
+  const prefersReducedMotion = useReducedMotion();
 
   // Parallax: orbs move slower than scroll
   const orbY1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
@@ -54,13 +62,17 @@ export default function Hero() {
       {/* Parallax gradient orbs (keeping 2 for depth) */}
       <div className="pointer-events-none absolute inset-0">
         <motion.div
-          style={{ y: orbY1 }}
-          className="animate-blob absolute -top-40 right-1/4 h-96 w-96 rounded-full bg-accent/8 blur-3xl"
-        />
+          style={{ y: prefersReducedMotion ? 0 : orbY1, willChange: "transform" }}
+          className="absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full opacity-[0.07]"
+        >
+          <div className="h-full w-full rounded-full bg-accent" style={{ filter: "blur(80px)" }} />
+        </motion.div>
         <motion.div
-          style={{ y: orbY2 }}
-          className="animate-blob-delay-2 absolute -bottom-40 left-1/4 h-80 w-80 rounded-full bg-accent-secondary/8 blur-3xl"
-        />
+          style={{ y: prefersReducedMotion ? 0 : orbY2, willChange: "transform" }}
+          className="absolute -bottom-40 left-1/4 h-[400px] w-[400px] rounded-full opacity-[0.07]"
+        >
+          <div className="h-full w-full rounded-full bg-accent-secondary" style={{ filter: "blur(80px)" }} />
+        </motion.div>
       </div>
 
       {/* Grid background with parallax */}
@@ -70,7 +82,7 @@ export default function Hero() {
           backgroundImage:
             "linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
-          y: useTransform(scrollYProgress, [0, 1], [0, -50]),
+          y: prefersReducedMotion ? 0 : useTransform(scrollYProgress, [0, 1], [0, -50]),
         }}
       />
 

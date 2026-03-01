@@ -38,8 +38,8 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   const [mounted, setMounted] = useState(false);
 
   const setTheme = useCallback((newTheme: Theme) => {
-    setThemeState(newTheme);
     const resolved = resolveTheme(newTheme);
+    setThemeState(newTheme);
     setResolvedTheme(resolved);
     document.documentElement.setAttribute("data-theme", resolved);
     if (newTheme === "system") {
