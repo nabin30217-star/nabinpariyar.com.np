@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 
 interface SVGDrawProps {
@@ -28,6 +28,7 @@ export default function SVGDraw({
 }: SVGDrawProps) {
   const ref = useRef<SVGSVGElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const prefersReduced = useReducedMotion();
 
   return (
     <svg
@@ -37,38 +38,50 @@ export default function SVGDraw({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {paths.map((d, i) => (
-        <motion.path
-          key={i}
-          d={d}
-          stroke={strokeColor}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={
-            isInView
-              ? {
-                  pathLength: 1,
-                  opacity: 1,
-                  fill: fillAfterDraw ? fillColor : "none",
-                }
-              : {}
-          }
-          transition={{
-            pathLength: {
-              duration,
-              delay: i * stagger,
-              ease: "easeInOut",
-            },
-            opacity: { duration: 0.2, delay: i * stagger },
-            fill: {
-              duration: 0.5,
-              delay: duration + i * stagger,
-            },
-          }}
-        />
-      ))}
+      {paths.map((d, i) =>
+        prefersReduced ? (
+          <path
+            key={i}
+            d={d}
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill={fillAfterDraw ? fillColor : "none"}
+          />
+        ) : (
+          <motion.path
+            key={i}
+            d={d}
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={
+              isInView
+                ? {
+                    pathLength: 1,
+                    opacity: 1,
+                    fill: fillAfterDraw ? fillColor : "none",
+                  }
+                : {}
+            }
+            transition={{
+              pathLength: {
+                duration,
+                delay: i * stagger,
+                ease: "easeInOut",
+              },
+              opacity: { duration: 0.2, delay: i * stagger },
+              fill: {
+                duration: 0.5,
+                delay: duration + i * stagger,
+              },
+            }}
+          />
+        )
+      )}
     </svg>
   );
 }

@@ -20,7 +20,7 @@ export default function TextScramble({
 }: TextScrambleProps) {
   const prefersReducedMotion = useReducedMotion();
   const [displayText, setDisplayText] = useState(triggerOnView && !prefersReducedMotion ? "\u00A0".repeat(text.length) : text);
-  const [hasTriggered, setHasTriggered] = useState(false);
+  const hasTriggeredRef = useRef(false);
   const ref = useRef<HTMLSpanElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
 
@@ -60,8 +60,8 @@ export default function TextScramble({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !hasTriggered) {
-          setHasTriggered(true);
+        if (entry.isIntersecting && !hasTriggeredRef.current) {
+          hasTriggeredRef.current = true;
           scramble();
           observer.disconnect();
         }
@@ -75,7 +75,7 @@ export default function TextScramble({
       observer.disconnect();
       cleanupRef.current?.();
     };
-  }, [triggerOnView, hasTriggered, scramble, prefersReducedMotion]);
+  }, [triggerOnView, scramble, prefersReducedMotion]);
 
   return (
     <span ref={ref} className={className} aria-label={text}>

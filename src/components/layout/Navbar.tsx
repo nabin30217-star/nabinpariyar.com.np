@@ -16,10 +16,20 @@ export default function Navbar() {
   const { resolvedTheme, setTheme, mounted } = useTheme();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    let rafId = 0;
+    const handleScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 50);
+        rafId = 0;
+      });
+    };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // Close mobile menu on Escape key

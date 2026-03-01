@@ -13,8 +13,8 @@ const AnimatedBackground = dynamic(
   () => import("@/components/animations/AnimatedBackground"),
   { ssr: false }
 );
-const MorphingShape = dynamic(
-  () => import("@/components/animations/MorphingShape"),
+const InteractiveAvatar = dynamic(
+  () => import("@/components/animations/InteractiveAvatar"),
   { ssr: false }
 );
 import { ChevronDownIcon } from "@/components/ui/Icons";
@@ -125,7 +125,7 @@ export default function Hero() {
               {/* Scramble subtitle then TypeWriter */}
               <motion.div
                 variants={fadeUp}
-                className="mt-6 h-8 text-lg text-text-muted sm:text-xl"
+                className="mt-6 min-h-8 text-lg text-text-muted sm:text-xl"
               >
                 <TextScramble
                   text="Mobile & Web Systems Engineer"
@@ -136,7 +136,7 @@ export default function Hero() {
 
               <motion.div
                 variants={fadeUp}
-                className="mt-2 h-8 text-lg text-text-muted sm:text-xl"
+                className="mt-2 min-h-8 text-lg text-text-muted sm:text-xl"
               >
                 <TypeWriter
                   words={[
@@ -171,14 +171,14 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            {/* Right column — Morphing Shape */}
+            {/* Right column — Interactive 3D Custom Avatar */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
-              className="hidden lg:block"
+              className="relative hidden lg:flex lg:items-center lg:justify-center"
             >
-              <MorphingShape className="h-[500px] w-full" />
+              <InteractiveAvatar />
             </motion.div>
           </div>
         </Container>
