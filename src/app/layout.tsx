@@ -74,7 +74,14 @@ export default function RootLayout({
               'ad_user_data': 'denied',
               'ad_personalization': 'denied',
               'analytics_storage': 'denied',
-              'wait_for_update': 500
+              'wait_for_update': 500,
+              'regions': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH']
+            });
+            gtag('consent', 'default', {
+              'ad_storage': 'granted',
+              'ad_user_data': 'granted',
+              'ad_personalization': 'granted',
+              'analytics_storage': 'granted'
             });
           `}
         </Script>
