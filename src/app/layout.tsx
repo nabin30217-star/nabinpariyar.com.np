@@ -64,11 +64,53 @@ export default function RootLayout({
     <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
         <meta name="google-adsense-account" content="ca-pub-1284990073783248" />
+        {/* Google Consent Mode v2 - must load BEFORE gtag and AdSense */}
+        <Script id="consent-mode" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              'ad_storage': 'denied',
+              'ad_user_data': 'denied',
+              'ad_personalization': 'denied',
+              'analytics_storage': 'denied',
+              'wait_for_update': 500
+            });
+          `}
+        </Script>
+        {/* Google Funding Choices CMP */}
+        <Script
+          src="https://fundingchoicesmessages.google.com/i/pub-1284990073783248?ers=1"
+          strategy="afterInteractive"
+        />
+        <Script id="google-fc-init" strategy="afterInteractive">
+          {`
+            (function() {
+              function signalGooglefcPresent() {
+                if (!window.frames['googlefcPresent']) {
+                  if (document.body) {
+                    const iframe = document.createElement('iframe');
+                    iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;';
+                    iframe.style.display = 'none';
+                    iframe.name = 'googlefcPresent';
+                    iframe.id = 'googlefcPresent';
+                    document.body.appendChild(iframe);
+                  } else {
+                    setTimeout(signalGooglefcPresent, 0);
+                  }
+                }
+              }
+              signalGooglefcPresent();
+            })();
+          `}
+        </Script>
+        {/* Google AdSense */}
         <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1284990073783248"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-F02NVF6MNS"
           strategy="afterInteractive"
