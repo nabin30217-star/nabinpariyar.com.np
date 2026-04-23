@@ -15,7 +15,7 @@ const legalLinks = [
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms", href: "/terms" },
   { label: "Support", href: "/support" },
-  { label: "Delete Account", href: "/delete-account" },
+  { label: "App Data Deletion", href: "/data-deletion" },
 ];
 
 export default function Footer() {

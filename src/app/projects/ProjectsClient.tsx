@@ -6,14 +6,14 @@ import Badge from "@/components/ui/Badge";
 import SpotlightCard from "@/components/animations/SpotlightCard";
 import { StaggerContainer, StaggerItem } from "@/components/animations/SlideUp";
 import ProjectCardImage from "@/components/ui/ProjectCardImage";
-import { projects } from "@/lib/data/projects";
+import { Project } from "@/types";
 
-function getStatusColor(project: (typeof projects)[0]) {
+function getStatusColor(project: Project) {
   if (project.playStoreUrl || project.liveUrl) return "text-emerald-400";
   return "text-yellow-400";
 }
 
-function getStatusLabel(project: (typeof projects)[0]) {
+function getStatusLabel(project: Project) {
   if (project.liveUrl) return "Live";
   if (project.playStoreUrl) return "Published";
   return "In Development";
@@ -21,7 +21,7 @@ function getStatusLabel(project: (typeof projects)[0]) {
 
 const directions: Array<"left" | "up" | "right"> = ["left", "up", "right"];
 
-export default function ProjectsClient() {
+export default function ProjectsClient({ projects }: { projects: Project[] }) {
   return (
     <Container className="py-24 sm:py-32">
       <SectionHeading title="Projects" subtitle="Apps and tools I've built" />
