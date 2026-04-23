@@ -10,6 +10,7 @@ import ProjectCardImage from "@/components/ui/ProjectCardImage";
 import TextScramble from "@/components/animations/TextScramble";
 import { projects } from "@/lib/data/projects";
 import { caseStudies } from "@/lib/data/case-studies";
+import { PlayStoreApp } from "@/types";
 
 // Map appIds to case study slugs
 const appIdToSlug: Record<string, string> = {
@@ -18,8 +19,22 @@ const appIdToSlug: Record<string, string> = {
   "com.smart.samtvremote": "samsung-tv-remote",
 };
 
-export default function FeaturedProjects() {
-  const featured = projects.filter((p) => p.featured);
+interface FeaturedProjectsProps {
+  playStoreApps?: PlayStoreApp[];
+}
+
+export default function FeaturedProjects({ playStoreApps = [] }: FeaturedProjectsProps) {
+  // Merge static featured projects with Play Store data
+  const featured = projects
+    .filter((p) => p.featured)
+    .map((project) => {
+      const playStoreData = playStoreApps.find((app) => app.appId === project.id);
+      return {
+        ...project,
+        title: playStoreData?.title || project.title,
+        image: playStoreData?.icon || project.image,
+      };
+    });
 
   const directions: Array<"left" | "up" | "right"> = ["left", "up", "right"];
 

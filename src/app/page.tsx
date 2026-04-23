@@ -26,7 +26,7 @@ export default async function Home() {
       <Hero />
       <Stats playStoreAppCount={playStoreAppCount} githubRepoCount={githubRepoCount} />
       <Expertise />
-      <FeaturedProjects />
+      <FeaturedProjects playStoreApps={playStoreApps} />
       <Philosophy />
       <ContactCTA />
     </>
