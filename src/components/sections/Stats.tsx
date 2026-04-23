@@ -85,7 +85,7 @@ const colorMap = {
   },
 };
 
-export default function Stats() {
+export default function Stats({ playStoreAppCount = 3 }: { playStoreAppCount?: number }) {
   return (
     <section className="py-16 sm:py-20">
       <Container>
@@ -96,6 +96,8 @@ export default function Stats() {
         <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, i) => {
             const colors = colorMap[stat.color];
+            // Use dynamic count for the Play Store stat
+            const displayValue = stat.label === "Apps on Play Store" ? playStoreAppCount : stat.value;
             return (
               <StaggerItem
                 key={stat.label}
@@ -123,7 +125,7 @@ export default function Stats() {
                     </div>
                     <div className="mt-3 text-4xl font-bold text-text">
                       <CountUp
-                        target={stat.value}
+                        target={displayValue}
                         duration={2}
                         suffix={stat.suffix}
                       />

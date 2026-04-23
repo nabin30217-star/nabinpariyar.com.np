@@ -44,11 +44,11 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
                 </span>
               </div>
 
-              <ProjectCardImage projectId={project.id} />
+              <ProjectCardImage projectId={project.id} imageUrl={project.image} />
               <h3 className="text-lg font-semibold text-text">
                 {project.title}
               </h3>
-              <p className="mt-2 text-sm text-text-muted">
+              <p className="mt-2 text-sm text-text-muted line-clamp-3">
                 {project.description}
               </p>
 

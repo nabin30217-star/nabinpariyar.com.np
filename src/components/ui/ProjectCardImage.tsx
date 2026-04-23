@@ -2,6 +2,7 @@ import Image from "next/image";
 
 interface ProjectCardImageProps {
   projectId: string;
+  imageUrl?: string;
   className?: string;
 }
 
@@ -33,8 +34,26 @@ const projectVisuals: Record<string, ProjectVisual> = {
   },
 };
 
-export default function ProjectCardImage({ projectId, className = "" }: ProjectCardImageProps) {
+export default function ProjectCardImage({ projectId, imageUrl, className = "" }: ProjectCardImageProps) {
   const visual = projectVisuals[projectId];
+  
+  if (imageUrl && !visual) {
+    return (
+      <div
+        className={`group/img relative mb-4 flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-zinc-700/30 via-zinc-600/20 to-zinc-500/10 p-6 ${className}`}
+      >
+        <Image
+          src={imageUrl}
+          alt={projectId.replace(/-/g, " ")}
+          width={200}
+          height={200}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="h-24 w-24 rounded-2xl object-contain shadow-lg transition-transform duration-500 group-hover/img:scale-110"
+        />
+      </div>
+    );
+  }
+
   if (!visual) return null;
 
   return (

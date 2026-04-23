@@ -24,7 +24,7 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://va.vercel-scripts.com",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob:",
+      "img-src 'self' data: blob: https://play-lh.googleusercontent.com",
       "font-src 'self' data:",
       "connect-src 'self' blob: https://api.web3forms.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
       "frame-ancestors 'none'",
@@ -39,6 +39,12 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "play-lh.googleusercontent.com",
+      },
+    ],
   },
   headers: async () => [
     {
