@@ -11,6 +11,13 @@ import TextScramble from "@/components/animations/TextScramble";
 import { projects } from "@/lib/data/projects";
 import { caseStudies } from "@/lib/data/case-studies";
 
+// Map appIds to case study slugs
+const appIdToSlug: Record<string, string> = {
+  "smartcalculator.calculators": "smart-calculator",
+  "com.vixit.studio.converter": "vixit",
+  "com.smart.samtvremote": "samsung-tv-remote",
+};
+
 export default function FeaturedProjects() {
   const featured = projects.filter((p) => p.featured);
 
@@ -28,9 +35,10 @@ export default function FeaturedProjects() {
         <div className="lg:hidden">
           <div className="scroll-snap-x -mx-4 flex gap-4 overflow-x-auto px-4 pb-4">
             {featured.map((project, index) => {
-              const hasCaseStudy = caseStudies.some(
-                (cs) => cs.slug === project.id
-              );
+              const caseStudySlug = appIdToSlug[project.id];
+              const hasCaseStudy = caseStudySlug ? caseStudies.some(
+                (cs) => cs.slug === caseStudySlug
+              ) : false;
               return (
                 <div
                   key={project.id}
@@ -40,11 +48,11 @@ export default function FeaturedProjects() {
                     className={`flex h-full flex-col p-6 ${index === 0 ? "gradient-border-animated" : ""}`}
                     maxTilt={8}
                   >
-                    <ProjectCardImage projectId={project.id} />
+                    <ProjectCardImage projectId={project.id} imageUrl={project.image} />
                     <h3 className="text-lg font-semibold text-text">
                       {project.title}
                     </h3>
-                    <p className="mt-2 text-sm text-text-muted">
+                    <p className="mt-2 text-sm text-text-muted line-clamp-3">
                       {project.description}
                     </p>
                     <div className="mt-4 flex flex-wrap gap-2">
@@ -74,7 +82,7 @@ export default function FeaturedProjects() {
                       )}
                       {hasCaseStudy && (
                         <a
-                          href={`/case-studies/${project.id}`}
+                          href={`/case-studies/${caseStudySlug}`}
                           aria-label={`Read case study for ${project.title}`}
                           className="link-underline inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:border-accent/30 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                         >
@@ -92,9 +100,10 @@ export default function FeaturedProjects() {
         {/* Desktop: staggered grid */}
         <StaggerContainer className="hidden gap-6 lg:grid lg:grid-cols-3">
           {featured.map((project, index) => {
-            const hasCaseStudy = caseStudies.some(
-              (cs) => cs.slug === project.id
-            );
+            const caseStudySlug = appIdToSlug[project.id];
+            const hasCaseStudy = caseStudySlug ? caseStudies.some(
+              (cs) => cs.slug === caseStudySlug
+            ) : false;
             return (
               <StaggerItem
                 key={project.id}
@@ -106,11 +115,11 @@ export default function FeaturedProjects() {
                   className={`flex h-full flex-col p-6 ${index === 0 ? "gradient-border-animated" : ""}`}
                   maxTilt={8}
                 >
-                  <ProjectCardImage projectId={project.id} />
+                  <ProjectCardImage projectId={project.id} imageUrl={project.image} />
                   <h3 className="text-lg font-semibold text-text">
                     {project.title}
                   </h3>
-                  <p className="mt-2 text-sm text-text-muted">
+                  <p className="mt-2 text-sm text-text-muted line-clamp-3">
                     {project.description}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
@@ -140,7 +149,7 @@ export default function FeaturedProjects() {
                     )}
                     {hasCaseStudy && (
                       <a
-                        href={`/case-studies/${project.id}`}
+                        href={`/case-studies/${caseStudySlug}`}
                         aria-label={`Read case study for ${project.title}`}
                         className="link-underline inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:border-accent/30 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                       >

@@ -2,8 +2,8 @@ import { Project } from "@/types";
 
 export const projects: Project[] = [
   {
-    id: "smart-calculator",
-    title: "Smart Calculator – All in One",
+    id: "smartcalculator.calculators",
+    title: "Smart Calculator – Converter",
     description:
       "Advanced calculator with 15+ tools including scientific mode, unit converter, and tip calculator. Built a custom recursive descent parser for expression evaluation — no heavy math libraries needed. Under 5MB APK size.",
     image: "/images/projects/smart-calculator.png",
@@ -14,8 +14,8 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "vixit",
-    title: "Vixit Video Compressor & Tools",
+    id: "com.vixit.studio.converter",
+    title: "Video Compressor: Save Space",
     description:
       "Video toolkit with FFmpeg-powered compression, format conversion, audio extraction, and trimming. Implemented background processing with WorkManager so users can multitask while videos convert.",
     image: "/images/projects/vixit.png",
@@ -26,8 +26,8 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "samsung-tv-remote",
-    title: "Samsung TV Remote – Wi-Fi & IR",
+    id: "com.smart.samtvremote",
+    title: "Remote Control for Samsung TV",
     description:
       "Dual-mode TV remote supporting both IR blaster hardware and Wi-Fi network control. Implemented Samsung's WebSocket-based WoL protocol for network discovery and UPnP for device pairing — no Samsung SDK required.",
     image: "/images/projects/samsung-tv-remote.png",
@@ -38,12 +38,14 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "paperly",
-    title: "Paperly PDF Scanner",
+    id: "com.paperly.pdfscanner",
+    title: "PDF Scanner – Sign & OCR",
     description:
       "Document scanner with real-time edge detection using OpenCV, perspective correction, and adaptive image filters. Built a custom CameraX pipeline for high-res capture with automatic document boundary detection.",
     image: "/images/projects/paperly.png",
     tags: ["Kotlin", "Jetpack Compose", "OpenCV", "CameraX"],
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.paperly.pdfscanner",
     githubUrl: "https://github.com/nabin30217-star",
     featured: false,
   },

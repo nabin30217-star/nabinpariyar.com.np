@@ -3,6 +3,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Card from "@/components/ui/Card";
 import Link from "next/link";
+import { getPlayStoreApps } from "@/lib/services/playStore";
 
 export const metadata: Metadata = {
   title: "App Data Deletion",
@@ -10,28 +11,19 @@ export const metadata: Metadata = {
     "Request deletion of your personal data collected by TheMixzone applications. Compliant with Google Play, GDPR, and CCPA requirements.",
 };
 
-const appDataTable = [
-  {
-    app: "Smart Calculator – All in One",
-    dataCollected: ["AdMob Advertising ID", "Firebase Crashlytics logs"],
-    storage: "Google servers (managed by Google)",
-    userAccounts: "None",
-  },
-  {
-    app: "Vixit Video Compressor & Tools",
-    dataCollected: ["AdMob Advertising ID", "Firebase Crashlytics logs"],
-    storage: "Google servers (managed by Google)",
-    userAccounts: "None",
-  },
-  {
-    app: "Samsung TV Remote – Wi-Fi & IR",
-    dataCollected: ["AdMob Advertising ID", "Firebase Crashlytics logs"],
-    storage: "Google servers (managed by Google)",
-    userAccounts: "None",
-  },
-];
+export const revalidate = 3600;
 
-export default function DataDeletionPage() {
+export default async function DataDeletionPage() {
+  const playStoreApps = await getPlayStoreApps();
+
+  // Build the per-app data table dynamically from Play Store
+  const appDataTable = playStoreApps.map((app) => ({
+    app: app.title,
+    dataCollected: ["AdMob Advertising ID", "Firebase Crashlytics logs"],
+    storage: "Google servers (managed by Google)",
+    userAccounts: "None",
+  }));
+
   return (
     <Container className="py-24 sm:py-32">
       <SectionHeading
@@ -45,7 +37,10 @@ export default function DataDeletionPage() {
           Last updated: April 2026
         </span>
         <span className="inline-flex items-center rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent ring-1 ring-accent/20">
-          GDPR & CCPA Compliant
+          GDPR &amp; CCPA Compliant
+        </span>
+        <span className="inline-flex items-center rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400 ring-1 ring-blue-500/20">
+          {appDataTable.length} Apps Covered
         </span>
       </div>
 
@@ -122,6 +117,9 @@ export default function DataDeletionPage() {
           <h2 className="text-xl font-semibold text-text">
             Data Collected Per App
           </h2>
+          <p className="mt-2 text-sm text-text-muted">
+            This table is automatically updated from the Google Play Store. Currently covering <strong className="text-text">{appDataTable.length} published apps</strong>.
+          </p>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -310,7 +308,7 @@ export default function DataDeletionPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:border-accent/30 hover:text-accent"
             >
-              Google Data & Privacy &rarr;
+              Google Data &amp; Privacy &rarr;
             </a>
           </div>
         </section>

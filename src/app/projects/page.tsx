@@ -14,35 +14,27 @@ export const revalidate = 3600;
 export default async function ProjectsPage() {
   const playStoreApps = await getPlayStoreApps();
   
-  // Merge dynamic play store apps with static data
+  // Merge: match by id (appId). Static provides curated description/tags,
+  // Play Store provides the live icon and title so they auto-update.
+  const staticIds = new Set(staticProjects.map(p => p.id));
+  
   const mergedProjects = staticProjects.map(staticApp => {
-    // Match by playStoreUrl or similar title
-    const dynamicApp = playStoreApps.find(
-      p => (staticApp.playStoreUrl && p.playStoreUrl === staticApp.playStoreUrl) ||
-           (p.title.toLowerCase().includes(staticApp.title.toLowerCase()) || staticApp.title.toLowerCase().includes(p.title.toLowerCase()))
-    );
+    const dynamicApp = playStoreApps.find(p => p.id === staticApp.id);
     
     if (dynamicApp) {
-      // Keep static details but use dynamic image if needed, or just let static override
       return {
-        ...dynamicApp,
         ...staticApp,
-        // Ensure playStoreUrl is passed from dynamic if static doesn't have it
-        playStoreUrl: staticApp.playStoreUrl || dynamicApp.playStoreUrl,
+        // Always use Play Store icon and title so they auto-update
+        image: dynamicApp.image,
+        title: dynamicApp.title,
+        playStoreUrl: dynamicApp.playStoreUrl || staticApp.playStoreUrl,
       };
     }
     return staticApp;
   });
 
-  // Add new Play Store apps not present in static list
-  const existingTitles = mergedProjects.map(p => p.title.toLowerCase());
-  const existingUrls = mergedProjects.map(p => p.playStoreUrl).filter(Boolean);
-  
-  const newPlayStoreApps = playStoreApps.filter(
-    p => p.playStoreUrl && 
-         !existingUrls.includes(p.playStoreUrl) &&
-         !existingTitles.some(title => title.includes(p.title.toLowerCase()) || p.title.toLowerCase().includes(title))
-  );
+  // Add any new Play Store apps not in the static list
+  const newPlayStoreApps = playStoreApps.filter(p => !staticIds.has(p.id));
   
   const allProjects = [...mergedProjects, ...newPlayStoreApps];
 

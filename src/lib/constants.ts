@@ -4,7 +4,7 @@ export const SITE_CONFIG = {
   name: "Nabin Pariyar",
   title: "Nabin Pariyar — Android & Web Developer",
   description:
-    "Self-taught developer from Nepal with 3 published apps on Google Play Store. Building Android apps with Kotlin and web experiences with Next.js.",
+    "Self-taught developer from Nepal with published apps on Google Play Store. Building Android apps with Kotlin and web experiences with Next.js.",
   url: "https://nabinpariyar.com.np",
   email: "nabin30217@gmail.com",
   supportEmail: "nabin30217@gmail.com",
