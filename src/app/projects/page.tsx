@@ -16,9 +16,10 @@ export default async function ProjectsPage() {
   
   // Merge dynamic play store apps with static data
   const mergedProjects = staticProjects.map(staticApp => {
-    // Match by playStoreUrl
+    // Match by playStoreUrl or similar title
     const dynamicApp = playStoreApps.find(
-      p => staticApp.playStoreUrl && p.playStoreUrl === staticApp.playStoreUrl
+      p => (staticApp.playStoreUrl && p.playStoreUrl === staticApp.playStoreUrl) ||
+           (p.title.toLowerCase().includes(staticApp.title.toLowerCase()) || staticApp.title.toLowerCase().includes(p.title.toLowerCase()))
     );
     
     if (dynamicApp) {
@@ -26,16 +27,21 @@ export default async function ProjectsPage() {
       return {
         ...dynamicApp,
         ...staticApp,
-        // We can keep dynamicApp's icon/title if we want, but staticApp usually has better curated content
+        // Ensure playStoreUrl is passed from dynamic if static doesn't have it
+        playStoreUrl: staticApp.playStoreUrl || dynamicApp.playStoreUrl,
       };
     }
     return staticApp;
   });
 
   // Add new Play Store apps not present in static list
+  const existingTitles = mergedProjects.map(p => p.title.toLowerCase());
   const existingUrls = mergedProjects.map(p => p.playStoreUrl).filter(Boolean);
+  
   const newPlayStoreApps = playStoreApps.filter(
-    p => p.playStoreUrl && !existingUrls.includes(p.playStoreUrl)
+    p => p.playStoreUrl && 
+         !existingUrls.includes(p.playStoreUrl) &&
+         !existingTitles.some(title => title.includes(p.title.toLowerCase()) || p.title.toLowerCase().includes(title))
   );
   
   const allProjects = [...mergedProjects, ...newPlayStoreApps];

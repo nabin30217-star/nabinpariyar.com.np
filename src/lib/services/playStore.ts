@@ -11,7 +11,7 @@ export async function getPlayStoreApps(): Promise<Project[]> {
     return apps.map((app) => ({
       id: app.appId,
       title: app.title,
-      description: app.summary || "Android Application",
+      description: (app.summary || "Android Application").replace(/<[^>]*>?/gm, ''),
       // Use the high-res icon if available
       image: app.icon,
       tags: ["Android", "Kotlin", "Play Store"],
