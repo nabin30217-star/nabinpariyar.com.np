@@ -8,6 +8,7 @@ import { NAV_LINKS, SITE_CONFIG } from "@/lib/constants";
 import { useTheme } from "@/components/theme/ThemeProvider";
 import Container from "@/components/ui/Container";
 import { SunIcon, MoonIcon, MenuIcon, CloseIcon } from "@/components/ui/Icons";
+import { Search } from "lucide-react";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -99,6 +100,22 @@ export default function Navbar() {
                 <span className="inline-block h-5 w-5" />
               )}
             </button>
+            <button
+              onClick={() => {
+                document.dispatchEvent(
+                  new KeyboardEvent("keydown", {
+                    key: "k",
+                    metaKey: true,
+                    bubbles: true,
+                  })
+                );
+              }}
+              className="ml-1 flex items-center gap-2 rounded-lg bg-border/50 px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:bg-border hover:text-text"
+              aria-label="Search"
+            >
+              <Search className="h-4 w-4" />
+              <span className="hidden lg:inline-block">Cmd K</span>
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -144,6 +161,22 @@ export default function Navbar() {
                   className="mt-2 cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium text-text-muted transition-colors hover:text-accent-hover"
                 >
                   {mounted ? (resolvedTheme === "dark" ? "Light Mode" : "Dark Mode") : "Toggle Theme"}
+                </button>
+                <button
+                  onClick={() => {
+                    setMobileOpen(false);
+                    document.dispatchEvent(
+                      new KeyboardEvent("keydown", {
+                        key: "k",
+                        metaKey: true,
+                        bubbles: true,
+                      })
+                    );
+                  }}
+                  className="mt-1 flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium text-text-muted transition-colors hover:text-accent-hover"
+                >
+                  <Search className="h-4 w-4" />
+                  Search (Cmd K)
                 </button>
               </div>
             </Container>

@@ -11,6 +11,7 @@ import SmoothScroll from "@/components/animations/SmoothScroll";
 import { SITE_CONFIG } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import CommandPalette from "@/components/ui/CommandPalette";
 import Script from "next/script";
 
 const inter = Inter({
@@ -151,6 +152,7 @@ export default function RootLayout({
               <PageTransition>{children}</PageTransition>
             </main>
             <Footer />
+            <CommandPalette />
             <Analytics />
             <SpeedInsights />
           </ThemeProvider>

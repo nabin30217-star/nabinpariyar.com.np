@@ -25,6 +25,9 @@ export const FOOTER_LINKS = {
     { label: "Projects", href: "/projects" },
     { label: "Services", href: "/services" },
     { label: "Blog", href: "/blog" },
+    { label: "Stack / Uses", href: "/stack" },
+    { label: "Changelog", href: "/changelog" },
+    { label: "Press Kit", href: "/press" },
     { label: "Contact", href: "/contact" },
   ],
   legal: [
