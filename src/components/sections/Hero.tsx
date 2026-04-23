@@ -141,7 +141,7 @@ export default function Hero() {
                 <TypeWriter
                   words={[
                     "Android Developer",
-                    "3 Apps on Google Play Store",
+                    "Several Apps on Google Play Store",
                     "Next.js Enthusiast",
                     "Learning. Shipping. Growing.",
                   ]}
@@ -153,7 +153,7 @@ export default function Hero() {
                 variants={fadeUp}
                 className="mt-6 max-w-xl text-lg leading-8 text-text-muted"
               >
-                Self-taught developer from Nepal with 3 published apps on the
+                Self-taught developer from Nepal with several published apps on the
                 Play Store. I build Android apps with Kotlin and Jetpack
                 Compose, and I&apos;m currently expanding into web development
                 with Next.js.

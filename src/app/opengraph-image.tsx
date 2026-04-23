@@ -101,7 +101,7 @@ export default async function Image() {
               lineHeight: 1.5,
             }}
           >
-            Self-taught developer from Nepal with 3 apps on the Play Store
+            Self-taught developer from Nepal with several apps on the Play Store
           </div>
         </div>
 

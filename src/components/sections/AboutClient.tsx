@@ -37,7 +37,7 @@ const timeline = [
   },
   {
     period: "2025",
-    title: "3 Apps Published",
+    title: "Several Apps Published",
     description:
       "Shipped Vixit Video Compressor and Samsung TV Remote. Learned real-world challenges: AdMob, privacy policies, user feedback.",
     // Smartphone icon
@@ -258,7 +258,7 @@ export default function AboutClient() {
             <p className="mt-6 text-lg leading-8 text-text-muted">
               I&apos;m a self-taught developer who fell in love with building
               things that people actually use. Six months ago, I wrote my first
-              line of Kotlin — today I have three apps on the Google Play Store
+              line of Kotlin — today I have several apps on the Google Play Store
               and I&apos;m expanding into web development.
             </p>
           </SlideUp>
@@ -276,7 +276,7 @@ export default function AboutClient() {
       <div className="mt-24">
         <SectionHeading
           title="My Journey"
-          subtitle="Zero to 3 Play Store apps in 6 months"
+          subtitle="Zero to multiple Play Store apps in months"
           accentColor="warm"
         />
         <AnimatedTimeline>

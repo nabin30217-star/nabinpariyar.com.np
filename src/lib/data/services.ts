@@ -5,7 +5,7 @@ export const services: Service[] = [
     id: "android-development",
     title: "Android App Development",
     description:
-      "Full-cycle Android development — from idea to Play Store launch and beyond. I build native apps with Kotlin and Jetpack Compose that are fast, beautiful, and production-ready. I've published 3 apps and know the Play Store inside out.",
+      "Full-cycle Android development — from idea to Play Store launch and beyond. I build native apps with Kotlin and Jetpack Compose that are fast, beautiful, and production-ready. I've published several apps and know the Play Store inside out.",
     icon: "smartphone",
     features: [
       "Kotlin & Jetpack Compose (modern, no XML)",

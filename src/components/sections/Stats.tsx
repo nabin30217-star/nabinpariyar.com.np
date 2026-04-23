@@ -85,7 +85,62 @@ const colorMap = {
   },
 };
 
-export default function Stats({ playStoreAppCount = 3 }: { playStoreAppCount?: number }) {
+const JOURNEY_START = new Date("2025-10-01");
+
+function getDynamicStats(playStoreAppCount: number, githubRepoCount: number) {
+  const now = new Date();
+  const months = Math.max(1, 
+    (now.getFullYear() - JOURNEY_START.getFullYear()) * 12 +
+    (now.getMonth() - JOURNEY_START.getMonth())
+  );
+  const kotlinLines = playStoreAppCount * 8; // Roughly 8K lines per app
+
+  return [
+    {
+      value: playStoreAppCount,
+      suffix: "",
+      label: "Apps on Play Store",
+      iconPaths: ["M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"],
+      color: "accent" as const,
+      featured: true,
+    },
+    {
+      value: months,
+      suffix: " mo",
+      label: "Self-Taught Journey",
+      iconPaths: ["M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"],
+      color: "warm" as const,
+      featured: false,
+    },
+    {
+      value: kotlinLines,
+      suffix: "K+",
+      label: "Lines of Kotlin",
+      iconPaths: ["M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"],
+      color: "emerald" as const,
+      featured: false,
+    },
+    {
+      value: Math.max(githubRepoCount, 1),
+      suffix: "",
+      label: "Open Source Repos",
+      // GitHub icon paths (simplified)
+      iconPaths: ["M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"],
+      color: "secondary" as const,
+      featured: false,
+    },
+  ];
+}
+
+export default function Stats({ 
+  playStoreAppCount = 5, 
+  githubRepoCount = 0 
+}: { 
+  playStoreAppCount?: number;
+  githubRepoCount?: number;
+}) {
+  const dynamicStats = getDynamicStats(playStoreAppCount, githubRepoCount);
+
   return (
     <section className="py-16 sm:py-20">
       <Container>
@@ -94,10 +149,8 @@ export default function Stats({ playStoreAppCount = 3 }: { playStoreAppCount?: n
           subtitle="What I've accomplished in my journey so far"
         />
         <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat, i) => {
+          {dynamicStats.map((stat, i) => {
             const colors = colorMap[stat.color];
-            // Use dynamic count for the Play Store stat
-            const displayValue = stat.label === "Apps on Play Store" ? playStoreAppCount : stat.value;
             return (
               <StaggerItem
                 key={stat.label}
@@ -106,7 +159,6 @@ export default function Stats({ playStoreAppCount = 3 }: { playStoreAppCount?: n
                 <SpotlightCard
                   className={`p-6 text-center ${stat.featured ? "gradient-border-animated sm:col-span-2 lg:col-span-1" : ""}`}
                 >
-                  {/* Background glow on hover */}
                   <div
                     className={`absolute inset-0 rounded-xl bg-gradient-to-br ${colors.hoverGlow} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
                   />
@@ -125,7 +177,7 @@ export default function Stats({ playStoreAppCount = 3 }: { playStoreAppCount?: n
                     </div>
                     <div className="mt-3 text-4xl font-bold text-text">
                       <CountUp
-                        target={displayValue}
+                        target={stat.value}
                         duration={2}
                         suffix={stat.suffix}
                       />

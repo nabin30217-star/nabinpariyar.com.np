@@ -11,7 +11,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
     {
         slug: "lessons-from-publishing-3-apps",
-        title: "What I Learned Publishing 3 Apps on the Play Store in 6 Months",
+        title: "What I Learned Publishing Several Apps on the Play Store in 6 Months",
         description:
             "The real challenges of going from zero to three published Android apps — from policy rejections to FFmpeg crashes, and everything in between.",
         publishedAt: "2025-02-20",
