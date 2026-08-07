@@ -1,136 +1,59 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Container from "@/components/ui/Container";
 import { SITE_CONFIG } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Privacy Policy",
-  description: "Privacy policy for apps and services by Nabin Pariyar.",
-};
+  description: "Privacy information for TheMixzone Android apps and this portfolio website.",
+  path: "/privacy-policy",
+});
 
 export default function PrivacyPolicyPage() {
   return (
-    <Container className="py-24 sm:py-32">
-      <h1 className="text-4xl font-bold tracking-tight text-text">
-        Privacy Policy
-      </h1>
-      <p className="mt-2 text-sm text-text-muted">Effective date: January 11, 2026</p>
+    <Container className="max-w-4xl pt-28 pb-20 sm:pt-36 sm:pb-28">
+      <p className="utility-label text-accent">TheMixzone apps / nabinpariyar.com.np</p>
+      <h1 className="section-title mt-4 text-text">Privacy policy</h1>
+      <p className="mt-4 text-sm text-text-muted">Effective date: August 7, 2026</p>
 
-      <div className="mt-10 max-w-3xl space-y-8">
+      <div className="mt-12 max-w-3xl space-y-10">
         <section>
-          <h2 className="text-xl font-semibold text-text">1. Overview</h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            This Privacy Policy describes how your personal information is
-            collected, used, and shared when you use any of our Android
-            applications published under the developer name &quot;TheMixzone&quot;
-            on the Google Play Store.
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-text">1. Scope</h2>
+          <p className="mt-3 leading-7 text-text-muted">This policy covers this portfolio website and Android applications published on Google Play under the developer name TheMixzone. Because app integrations can differ, each app’s current Google Play Data Safety section should be read alongside this policy.</p>
         </section>
-
         <section>
-          <h2 className="text-xl font-semibold text-text">
-            2. Information We May Collect
-          </h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            Our apps are designed to work mostly offline and do not require user
-            registration. We do not directly collect, store, or transmit your
-            personal data. However, third-party services integrated into our apps
-            (such as Google AdMob and Firebase) may collect certain information
-            automatically.
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-text">2. Accounts and storage I operate</h2>
+          <p className="mt-3 leading-7 text-text-muted">The apps currently listed on my portfolio do not use a shared account system that I operate. App preferences, history, and working files may be stored locally on your device. Local data can be removed through Android’s Clear storage action or by uninstalling the app.</p>
         </section>
-
         <section>
-          <h2 className="text-xl font-semibold text-text">3. Ads (AdMob)</h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            Our apps use Google AdMob to display advertisements. AdMob may use
-            third-party mediation partners (such as Meta Audience Network and
-            Unity Ads) to serve ads. These services may collect and use data
-            such as your device&apos;s advertising ID, IP address, and general
-            location to serve relevant ads. You can control ad personalization
-            through your device&apos;s settings.
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-text">3. Google services in apps</h2>
+          <p className="mt-3 leading-7 text-text-muted">A specific app may use Google services such as AdMob, Analytics, or Crashlytics. Depending on the service and your settings, Google may process advertising identifiers, device information, app activity, diagnostics, approximate location derived from network information, or other data described in that app’s Data Safety disclosure. Google controls its own processing and retention.</p>
         </section>
-
         <section>
-          <h2 className="text-xl font-semibold text-text">
-            4. Analytics / Crash Reporting
-          </h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            We may use Firebase Crashlytics and Firebase Analytics to collect
-            anonymous usage data and crash reports. This helps us identify bugs,
-            improve app stability, and understand how users interact with our
-            apps. This data is anonymized and cannot be used to personally
-            identify you.
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-text">4. Website analytics, advertising, and consent</h2>
+          <p className="mt-3 leading-7 text-text-muted">The production website uses Google Analytics, Google AdSense, and Google Funding Choices consent tooling. Consent defaults are restricted for covered regions until a visitor’s choice is available. Vercel Analytics and Speed Insights may also measure aggregate website performance. These services may receive network and device information under their own policies.</p>
         </section>
-
         <section>
-          <h2 className="text-xl font-semibold text-text">5. Permissions</h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            Some of our apps may request device permissions (such as camera,
-            storage, or network access) to provide core functionality. These
-            permissions are only used for the stated purpose and no data is
-            transmitted to our servers.
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-text">5. Contact messages</h2>
+          <p className="mt-3 leading-7 text-text-muted">When you send the contact form or email support, the name, email address, and message you provide are used to respond to the request. Do not include passwords, payment details, API keys, or other sensitive credentials.</p>
         </section>
-
         <section>
-          <h2 className="text-xl font-semibold text-text">6. Data Sharing</h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            We do not sell, trade, or share your personal data with third
-            parties, except as required by the third-party SDKs mentioned above
-            (AdMob, Firebase) which operate under their own privacy policies.
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-text">6. Permissions</h2>
+          <p className="mt-3 leading-7 text-text-muted">An app requests Android permissions only when needed for a feature, such as accessing media selected for compression, communicating with a television on a local network, or capturing a document. The Play listing and Android permission prompt provide app-specific context.</p>
         </section>
-
         <section>
-          <h2 className="text-xl font-semibold text-text">
-            7. Data Retention &amp; Deletion
-          </h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            Since we do not collect personal data directly, there is no user data
-            stored on our servers. Any data collected by third-party services is
-            subject to their respective data retention policies. You can request
-            deletion of your data by contacting us.
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-text">7. Deletion and controls</h2>
+          <p className="mt-3 leading-7 text-text-muted">Use the app data deletion page for device-level removal steps, Google account controls, and support contact details. I cannot delete third-party data that the provider does not make available to me as the developer.</p>
+          <Link href="/data-deletion" className="text-link mt-3">Open app data deletion guidance →</Link>
         </section>
-
         <section>
-          <h2 className="text-xl font-semibold text-text">
-            8. Children&apos;s Privacy
-          </h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            Our apps are not specifically directed at children under the age of
-            13. We do not knowingly collect personal data from children. If you
-            believe we have inadvertently collected such data, please contact us
-            immediately.
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-text">8. Children</h2>
+          <p className="mt-3 leading-7 text-text-muted">My apps and portfolio are not directed to children under 13. If you believe a child has provided personal information through a support message, contact me so I can review and remove the message where I control it.</p>
         </section>
-
         <section>
-          <h2 className="text-xl font-semibold text-text">9. Contact</h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            If you have any questions about this Privacy Policy, please contact
-            us at{" "}
-            <a
-              href={`mailto:${SITE_CONFIG.supportEmail}`}
-              className="text-accent hover:text-accent-hover"
-            >
-              {SITE_CONFIG.supportEmail}
-            </a>
-            .
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-text">
-            10. Updates to This Policy
-          </h2>
-          <p className="mt-2 leading-7 text-text-muted">
-            We may update this Privacy Policy from time to time. Any changes will
-            be posted on this page with an updated effective date. We encourage
-            you to review this page periodically.
-          </p>
+          <h2 className="font-display text-2xl font-semibold text-text">9. Contact and updates</h2>
+          <p className="mt-3 leading-7 text-text-muted">Questions can be sent to <a href={`mailto:${SITE_CONFIG.supportEmail}`} className="inline-flex min-h-11 items-center underline hover:text-text">{SITE_CONFIG.supportEmail}</a>. Material policy changes will be posted here with a revised effective date.</p>
         </section>
       </div>
     </Container>

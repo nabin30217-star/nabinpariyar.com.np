@@ -22,11 +22,17 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://va.vercel-scripts.com",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://play-lh.googleusercontent.com",
-      "font-src 'self' data:",
-      "connect-src 'self' blob: https://api.web3forms.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+      // AdSense's serving domains change over time. Google supports a permissive
+      // HTTPS source policy when a nonce-based strict CSP is not practical.
+      // Keeping this in next.config preserves static generation and CDN caching.
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
+      "style-src 'self' 'unsafe-inline' https:",
+      "img-src 'self' data: blob: https:",
+      "font-src 'self' data: https:",
+      "connect-src 'self' blob: https:",
+      "frame-src https:",
+      "worker-src 'self' blob:",
+      "media-src 'self' blob: https:",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -50,6 +56,13 @@ const nextConfig: NextConfig = {
     {
       source: "/(.*)",
       headers: securityHeaders,
+    },
+  ],
+  redirects: async () => [
+    {
+      source: "/blog/why-i-built-my-portfolio-with-nextjs",
+      destination: "/blog",
+      permanent: true,
     },
   ],
 };

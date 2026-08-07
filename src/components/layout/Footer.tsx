@@ -1,97 +1,80 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
-import { SITE_CONFIG, SOCIAL_LINKS } from "@/lib/constants";
-import { GitHubIcon } from "@/components/ui/Icons";
+import { FOOTER_LINKS, SITE_CONFIG, SOCIAL_LINKS } from "@/lib/constants";
 
-const quickLinks = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
+const portfolioLinks = [
+  { label: "Work", href: "/projects" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
-const legalLinks = [
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms", href: "/terms" },
-  { label: "Support", href: "/support" },
-  { label: "App Data Deletion", href: "/data-deletion" },
-];
+const resourceLinks = FOOTER_LINKS.quickLinks.filter((link) =>
+  ["/blog", "/stack", "/changelog", "/press"].includes(link.href),
+);
+
+function FooterLink({ label, href }: { label: string; href: string }) {
+  return (
+    <li>
+      <Link
+        href={href}
+        prefetch={false}
+        className="inline-flex min-h-11 min-w-11 items-center text-sm text-text-muted transition-colors hover:text-text"
+      >
+        {label}
+      </Link>
+    </li>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer className="relative bg-surface">
-      {/* Animated gradient top border */}
-      <div className="h-px w-full overflow-hidden">
-        <div
-          className="h-full w-[200%] bg-gradient-to-r from-accent via-accent-secondary to-accent-warm animate-[gradient-slide_4s_linear_infinite]"
-          style={{ backgroundSize: "200% auto" }}
-        />
-      </div>
-
-      <Container className="py-12">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-          {/* Brand */}
-          <div>
-            <Link href="/" className="text-lg font-bold text-text">
+    <footer className="border-t border-border bg-surface">
+      <Container className="py-12 sm:py-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.45fr_1fr_1fr_1.2fr]">
+          <div className="max-w-sm">
+            <Link href="/" prefetch={false} className="inline-flex min-h-11 items-center font-display text-xl font-semibold text-text">
               {SITE_CONFIG.name}
             </Link>
-            <p className="mt-3 text-sm text-text-muted">
-              Android &amp; web developer from Nepal. Building useful apps for
-              the Play Store and the web.
+            <p className="mt-3 text-sm leading-6 text-text-muted">
+              I build full-stack business systems and independently published Android apps.
             </p>
+            <div className="mt-4 flex flex-wrap gap-x-5">
+              <a href={SOCIAL_LINKS.playStore} target="_blank" rel="noopener noreferrer" className="text-link">
+                Google Play ↗
+              </a>
+              <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer" className="text-link">
+                GitHub ↗
+              </a>
+            </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-sm font-semibold text-text">Quick Links</h3>
-            <ul className="mt-3 space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="link-underline text-sm text-text-muted transition-colors hover:text-accent"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+          <nav aria-label="Portfolio links">
+            <h2 className="utility-label text-text">Portfolio</h2>
+            <ul className="mt-2">
+              {portfolioLinks.map((link) => <FooterLink key={link.href} {...link} />)}
             </ul>
-          </div>
+          </nav>
 
-          {/* Legal */}
-          <div>
-            <h3 className="text-sm font-semibold text-text">Legal</h3>
-            <ul className="mt-3 space-y-2">
-              {legalLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="link-underline text-sm text-text-muted transition-colors hover:text-accent"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+          <nav aria-label="Resource links">
+            <h2 className="utility-label text-text">Resources</h2>
+            <ul className="mt-2">
+              {resourceLinks.map((link) => <FooterLink key={link.href} {...link} />)}
             </ul>
-          </div>
+          </nav>
+
+          <nav aria-label="App support and legal links">
+            <h2 className="utility-label text-text">App &amp; legal</h2>
+            <ul className="mt-2">
+              {FOOTER_LINKS.legal.map((link) => <FooterLink key={link.href} {...link} />)}
+            </ul>
+          </nav>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 flex items-center justify-between border-t border-border pt-6">
-          <p className="text-sm text-text-muted">
-            &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights
-            reserved.
-          </p>
-          <a
-            href={SOCIAL_LINKS.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-text-muted transition-colors hover:text-accent"
-            aria-label="GitHub"
-          >
-            <GitHubIcon className="h-5 w-5" />
-          </a>
+        <div className="mt-12 flex flex-col gap-2 border-t border-border pt-6 font-utility text-[0.7rem] uppercase tracking-[0.08em] text-text-muted sm:flex-row sm:justify-between">
+          <p>© {new Date().getFullYear()} {SITE_CONFIG.name}</p>
+          <p>Web systems ↔ Android products / Nepal</p>
         </div>
       </Container>
     </footer>

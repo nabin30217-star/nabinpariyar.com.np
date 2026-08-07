@@ -1,84 +1,36 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
-import Badge from "@/components/ui/Badge";
+import { getPortfolioProjects } from "@/lib/services/playStore";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Changelog",
-  description: "A timeline of updates and improvements to my apps and projects.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "Product Record",
+  description: "A factual record of Nabin Pariyar’s published Android products, with Google Play as the source for current release details.",
+  path: "/changelog",
+});
 
-const changelogData = [
-  {
-    version: "v1.2.0",
-    date: "April 2026",
-    app: "Vixit Video Compressor",
-    changes: [
-      "Integrated FFmpeg native library for 3x faster compression.",
-      "Added support for batch video compression.",
-      "Fixed UI glitches on Android 14.",
-    ],
-    type: "feature",
-  },
-  {
-    version: "v2.0.0",
-    date: "March 2026",
-    app: "Samsung TV Remote",
-    changes: [
-      "Complete UI redesign with Glassmorphism and modern aesthetics.",
-      "Added haptic feedback for button presses.",
-      "Improved automatic TV discovery over local WiFi network.",
-    ],
-    type: "major",
-  },
-  {
-    version: "v1.0.5",
-    date: "January 2026",
-    app: "Smart Calculator",
-    changes: [
-      "Added history tape feature to save previous calculations.",
-      "Reduced app bundle size by 15%.",
-      "Fixed floating point precision bugs.",
-    ],
-    type: "patch",
-  },
-];
+export const revalidate = 86400;
 
-export default function ChangelogPage() {
+export default async function ChangelogPage() {
+  const projects = await getPortfolioProjects();
   return (
-    <Container className="py-24 sm:py-32 max-w-3xl">
-      <SectionHeading
-        title="Changelog"
-        subtitle="I don't just ship apps; I maintain and improve them. Here is a timeline of recent updates."
-      />
-
-      <div className="mt-16 space-y-12 border-l-2 border-border pl-6 ml-4">
-        {changelogData.map((log, index) => (
-          <div key={index} className="relative">
-            {/* Timeline Dot */}
-            <div className="absolute -left-[31px] top-1 h-4 w-4 rounded-full border-4 border-bg bg-accent shadow-[0_0_0_2px_var(--border)]" />
-            
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
-              <div className="flex items-center gap-3">
-                <h3 className="text-xl font-bold text-text">{log.app} <span className="text-accent">{log.version}</span></h3>
-                {log.type === "major" && <Badge color="accent">Major Update</Badge>}
-                {log.type === "feature" && <Badge color="emerald">New Features</Badge>}
-                {log.type === "patch" && <Badge color="secondary">Bug Fixes</Badge>}
-              </div>
-              <span className="text-sm font-medium text-text-muted">{log.date}</span>
+    <Container className="max-w-5xl pt-28 pb-20 sm:pt-36 sm:pb-28">
+      <SectionHeading eyebrow="Product record" title="What is live, without invented version history." subtitle="Google Play remains the source of truth for versions and release dates. This page records the technical role of each published product." />
+      <ol className="border-y border-border">
+        {projects.filter((project) => project.featured).map((project, index) => (
+          <li key={project.id} className="grid gap-4 border-b border-border py-8 last:border-b-0 sm:grid-cols-[3rem_1fr_auto] sm:items-center">
+            <span className="font-utility text-xs text-accent">0{index + 1}</span>
+            <div>
+              <h2 className="font-display text-3xl font-semibold text-text">{project.title}</h2>
+              <p className="mt-3 max-w-2xl leading-7 text-text-muted">{project.description}</p>
             </div>
-
-            <ul className="space-y-3 mt-4">
-              {log.changes.map((change, i) => (
-                <li key={i} className="text-text-muted flex items-start gap-2">
-                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent/50" />
-                  <span>{change}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {project.playStoreUrl && <a href={project.playStoreUrl} target="_blank" rel="noopener noreferrer" className="text-link">Current listing ↗</a>}
+          </li>
         ))}
-      </div>
+      </ol>
+      <Link href="/projects" className="text-link mt-7">View the complete work index →</Link>
     </Container>
   );
 }

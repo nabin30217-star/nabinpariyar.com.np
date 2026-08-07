@@ -1,79 +1,47 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Card from "@/components/ui/Card";
-import { SOCIAL_LINKS } from "@/lib/constants";
-import { EmailIcon, GitHubIcon, PlayIcon } from "@/components/ui/Icons";
 import ContactForm from "@/components/sections/ContactForm";
 import FAQ from "@/components/sections/FAQ";
+import { SOCIAL_LINKS } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Contact",
-  description: "Get in touch with Nabin Pariyar for freelance work, collaborations, or conversations.",
-};
+  description: "Contact Nabin Pariyar about a full-stack Next.js web application, garment ERP workflow, native Kotlin Android app, Play Store release, or difficult product integration.",
+  path: "/contact",
+});
 
 const contactMethods = [
-  {
-    label: "Email",
-    value: "nabin30217@gmail.com",
-    href: SOCIAL_LINKS.email,
-    icon: <EmailIcon className="h-6 w-6 text-accent" />,
-  },
-  {
-    label: "GitHub",
-    value: "github.com/nabin30217-star",
-    href: SOCIAL_LINKS.github,
-    icon: <GitHubIcon className="h-6 w-6 text-accent" />,
-  },
-  {
-    label: "Play Store",
-    value: "TheMixzone Developer Page",
-    href: SOCIAL_LINKS.playStore,
-    icon: <PlayIcon className="h-6 w-6 text-accent" />,
-  },
+  { label: "Email", value: "nabin30217@gmail.com", href: SOCIAL_LINKS.email, external: false },
+  { label: "Code", value: "nabin30217-star", href: SOCIAL_LINKS.github, external: true },
+  { label: "Published apps", value: "TheMixzone", href: SOCIAL_LINKS.playStore, external: true },
 ];
 
 export default function ContactPage() {
   return (
-    <Container className="py-24 sm:py-32">
-      <SectionHeading title="Get in Touch" />
-
-      {/* Availability banner */}
-      <div className="mb-10 flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-5 py-3">
-        <span className="relative flex h-3 w-3">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-          <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500" />
-        </span>
-        <p className="text-sm text-emerald-400">
-          <strong>Currently available</strong> for freelance projects and collaborations
-        </p>
+    <Container className="pt-28 pb-20 sm:pt-36 sm:pb-28">
+      <div className="grid gap-10 border-b border-border pb-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <p className="utility-label text-accent">Contact / start with the constraint</p>
+        <div>
+          <h1 className="display-title text-text">Bring the problem, not a polished brief.</h1>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-text-muted sm:text-xl sm:leading-9">
+            The best first message explains what must work, what makes it difficult, and what exists today. I can then respond with a useful next step—or say plainly when I am not the right fit.
+          </p>
+        </div>
       </div>
 
-      <p className="mb-10 max-w-xl text-lg text-text-muted">
-        I&apos;m available for freelance work, collaborations, and interesting
-        conversations. I typically respond within <strong className="text-text">24 hours</strong>.
-      </p>
-
-      <div className="grid gap-6 sm:grid-cols-3">
+      <section className="border-b border-border" aria-labelledby="direct-contact-title">
+        <h2 id="direct-contact-title" className="sr-only">Direct contact links</h2>
         {contactMethods.map((method) => (
-          <a
-            key={method.label}
-            href={method.href}
-            target={method.label !== "Email" ? "_blank" : undefined}
-            rel={method.label !== "Email" ? "noopener noreferrer" : undefined}
-          >
-            <Card className="h-full text-center">
-              <div className="mb-3 flex justify-center">{method.icon}</div>
-              <h3 className="text-sm font-semibold text-text">{method.label}</h3>
-              <p className="mt-1 text-sm text-text-muted">{method.value}</p>
-            </Card>
+          <a key={method.label} href={method.href} target={method.external ? "_blank" : undefined} rel={method.external ? "noopener noreferrer" : undefined} className="grid min-h-20 gap-1 border-b border-border py-5 last:border-b-0 sm:grid-cols-[10rem_1fr_auto] sm:items-center">
+            <span className="utility-label text-accent">{method.label}</span>
+            <span className="min-w-0 break-words font-semibold text-text">{method.value}</span>
+            <span aria-hidden="true" className="text-text-muted">{method.external ? "↗" : "→"}</span>
           </a>
         ))}
-      </div>
+      </section>
 
       <ContactForm />
-
-      {/* FAQ Section */}
       <FAQ />
     </Container>
   );

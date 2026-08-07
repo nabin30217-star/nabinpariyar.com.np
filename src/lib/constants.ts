@@ -2,20 +2,18 @@ import { NavLink } from "@/types";
 
 export const SITE_CONFIG = {
   name: "Nabin Pariyar",
-  title: "Nabin Pariyar — Android & Web Developer",
+  title: "Nabin Pariyar — Full-Stack Web & Android Developer",
   description:
-    "Self-taught developer from Nepal with published apps on Google Play Store. Building Android apps with Kotlin and web experiences with Next.js.",
+    "I build full-stack business systems and native Android products, including a live private garment ERP and eight apps published through my TheMixzone account.",
   url: "https://nabinpariyar.com.np",
   email: "nabin30217@gmail.com",
   supportEmail: "nabin30217@gmail.com",
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Home", href: "/" },
+  { label: "Work", href: "/projects" },
   { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "Services", href: "/services" },
+  { label: "Notes", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -35,6 +33,7 @@ export const FOOTER_LINKS = {
     { label: "Terms", href: "/terms" },
     { label: "Support", href: "/support" },
     { label: "Delete Account", href: "/delete-account" },
+    { label: "App Data Deletion", href: "/data-deletion" },
   ],
 };
 

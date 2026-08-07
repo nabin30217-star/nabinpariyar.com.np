@@ -59,7 +59,7 @@ Building the Samsung TV Remote taught me that hardware APIs are a completely dif
 
 ## What's Next
 
-I'm expanding into web development (this site is built with Next.js), and I have a fourth app — Paperly, a PDF scanner — in development. The goal is to become a full-stack engineer who can build anything from a mobile app to a complete web platform.
+Since writing this article, I have expanded into full-stack web development and built this portfolio with Next.js. I have now built more than 15 Android apps, with eight currently published through my own TheMixzone account. I continue to build across mobile apps and complete web systems.
 
 If you're thinking about publishing your first app: just do it. The Play Store will humble you, users will surprise you, and you'll learn more in one published app than in a hundred tutorials.`,
     },

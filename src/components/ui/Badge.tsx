@@ -5,11 +5,11 @@ interface BadgeProps {
 }
 
 const colorStyles = {
-  accent: "bg-accent/15 text-accent",
-  warm: "bg-accent-warm/15 text-accent-warm",
-  emerald: "bg-accent-emerald/15 text-accent-emerald",
-  coral: "bg-accent-coral/15 text-accent-coral",
-  secondary: "bg-accent-secondary/15 text-accent-secondary",
+  accent: "border-accent/50 text-accent",
+  warm: "border-border text-text-muted",
+  emerald: "border-border text-text-muted",
+  coral: "border-border text-text-muted",
+  secondary: "border-border text-text-muted",
 };
 
 export default function Badge({
@@ -19,7 +19,7 @@ export default function Badge({
 }: BadgeProps) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold ${colorStyles[color]} ${className}`}
+      className={`inline-flex items-center border px-3 py-1 font-utility text-[0.68rem] uppercase tracking-[0.06em] ${colorStyles[color]} ${className}`}
     >
       {children}
     </span>

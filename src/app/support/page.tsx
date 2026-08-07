@@ -1,71 +1,56 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Container from "@/components/ui/Container";
-import Card from "@/components/ui/Card";
 import { SITE_CONFIG } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Support",
-  description: "Get support for apps by Nabin Pariyar.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "App Support",
+  description: "Support contacts, troubleshooting, privacy, and data-deletion guidance for Android apps published by TheMixzone.",
+  path: "/support",
+});
 
-const faqs = [
-  {
-    question: "Why do I see different ads depending on my region?",
-    answer:
-      "We use Google AdMob to display ads. The type and frequency of ads may vary based on your geographic location, device, and Google's ad personalization settings. You can adjust ad preferences in your device settings.",
-  },
-  {
-    question: "How can I request a new feature?",
-    answer:
-      "We'd love to hear your ideas! Send us an email with the subject 'Feature Request' along with the app name and a description of the feature you'd like to see. We review all requests and prioritize based on demand.",
-  },
-  {
-    question: "How do I report a bug?",
-    answer:
-      "If you encounter a bug, please email us with the subject 'Bug Report'. Include the app name, your device model, Android version, and a description of the issue. Screenshots or screen recordings are very helpful.",
-  },
-  {
-    question: "How can I delete my data?",
-    answer:
-      "Most of our apps work offline and don't store data on external servers. If you'd like to request data deletion for any data collected by third-party services, please visit our Delete Account page or email us directly.",
-  },
+const supportTopics = [
+  ["Report a bug", "Include the app title, Android version, device model, the steps that caused the problem, and a screenshot or recording when possible."],
+  ["Request a feature", "Name the app, describe the user problem, and explain what the new behavior would let you do."],
+  ["Advertising controls", "Ad availability and personalization can vary by region and Google settings. Android’s Privacy / Ads settings provide the user controls."],
 ];
 
 export default function SupportPage() {
   return (
-    <Container className="py-24 sm:py-32">
-      <h1 className="text-4xl font-bold tracking-tight text-text">Support</h1>
-
-      <div className="mt-8 max-w-3xl">
-        <p className="text-lg text-text-muted">
-          Need help with one of our apps? We&apos;re here to help.
-        </p>
-        <p className="mt-4 text-text-muted">
-          Contact us at{" "}
-          <a
-            href={`mailto:${SITE_CONFIG.supportEmail}`}
-            className="text-accent hover:text-accent-hover"
-          >
-            {SITE_CONFIG.supportEmail}
-          </a>
-        </p>
+    <Container className="max-w-5xl pt-28 pb-20 sm:pt-36 sm:pb-28">
+      <div className="grid gap-8 border-b border-border pb-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <p className="utility-label text-accent">TheMixzone / app support</p>
+        <div>
+          <h1 className="display-title text-text">Start with the app name and what happened.</h1>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-text-muted">Clear reproduction details make support faster. Send them directly to <a href={`mailto:${SITE_CONFIG.supportEmail}`} className="inline-flex min-h-11 items-center underline hover:text-text">{SITE_CONFIG.supportEmail}</a>.</p>
+        </div>
       </div>
 
-      {/* FAQ */}
-      <div className="mt-16 max-w-3xl">
-        <h2 className="mb-8 text-2xl font-semibold text-text">
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-4">
-          {faqs.map((faq) => (
-            <Card key={faq.question} hover={false}>
-              <h3 className="font-semibold text-text">{faq.question}</h3>
-              <p className="mt-2 text-sm leading-6 text-text-muted">
-                {faq.answer}
-              </p>
-            </Card>
+      <section aria-labelledby="support-topics-title" className="pt-12">
+        <h2 id="support-topics-title" className="sr-only">Support topics</h2>
+        <dl className="border-y border-border">
+          {supportTopics.map(([title, text], index) => (
+            <div key={title} className="grid gap-3 border-b border-border py-7 last:border-b-0 sm:grid-cols-[3rem_11rem_1fr]">
+              <span className="font-utility text-xs text-accent">0{index + 1}</span>
+              <dt className="font-semibold text-text">{title}</dt>
+              <dd className="leading-7 text-text-muted">{text}</dd>
+            </div>
           ))}
-        </div>
+        </dl>
+      </section>
+
+      <div className="mt-12 grid gap-8 sm:grid-cols-2">
+        <section className="border-t border-accent pt-5">
+          <h2 className="font-display text-2xl font-semibold text-text">Remove app data</h2>
+          <p className="mt-3 leading-7 text-text-muted">Device removal steps, Google controls, and app-specific support.</p>
+          <Link href="/data-deletion" className="text-link mt-3">Data deletion guidance →</Link>
+        </section>
+        <section className="border-t border-border pt-5">
+          <h2 className="font-display text-2xl font-semibold text-text">Privacy details</h2>
+          <p className="mt-3 leading-7 text-text-muted">How app, website, analytics, and contact data are handled.</p>
+          <Link href="/privacy-policy" className="text-link mt-3">Read the privacy policy →</Link>
+        </section>
       </div>
     </Container>
   );

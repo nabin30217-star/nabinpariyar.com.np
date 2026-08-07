@@ -1,11 +1,24 @@
 import { Project } from "@/types";
 
+const productOrder = [
+  "com.universaltv.remotetv",
+  "com.paperly.pdfscanner",
+  "com.vixit.studio.converter",
+  "com.smart.samtvremote",
+  "smartcalculator.calculators",
+  "com.tvremote.vestel",
+  "com.remote.skyworthir",
+  "com.remote.bushtvir",
+];
+
+const projectRank = new Map(productOrder.map((id, index) => [id, index]));
+
 export const projects: Project[] = [
   {
     id: "smartcalculator.calculators",
     title: "Smart Calculator – Converter",
     description:
-      "Advanced calculator with 15+ tools including scientific mode, unit converter, and tip calculator. Built a custom recursive descent parser for expression evaluation — no heavy math libraries needed. Under 5MB APK size.",
+      "A multi-tool calculator whose expression engine is a hand-built recursive-descent parser. The technical center is owned in Kotlin rather than delegated to a general-purpose math library.",
     image: "/images/projects/smart-calculator.png",
     tags: ["Kotlin", "Jetpack Compose", "Material 3", "MVVM"],
     playStoreUrl:
@@ -17,7 +30,7 @@ export const projects: Project[] = [
     id: "com.vixit.studio.converter",
     title: "Video Compressor: Save Space",
     description:
-      "Video toolkit with FFmpeg-powered compression, format conversion, audio extraction, and trimming. Implemented background processing with WorkManager so users can multitask while videos convert.",
+      "A video utility built around FFmpeg processing and WorkManager background jobs, so compression work is not coupled to one open screen.",
     image: "/images/projects/vixit.png",
     tags: ["Kotlin", "Jetpack Compose", "FFmpeg", "WorkManager"],
     playStoreUrl:
@@ -29,7 +42,7 @@ export const projects: Project[] = [
     id: "com.smart.samtvremote",
     title: "Remote Control for Samsung TV",
     description:
-      "Dual-mode TV remote supporting both IR blaster hardware and Wi-Fi network control. Implemented Samsung's WebSocket-based WoL protocol for network discovery and UPnP for device pairing — no Samsung SDK required.",
+      "A Samsung TV remote built without an official SDK. It works directly with Samsung’s WebSocket control path and Wake-on-LAN behavior.",
     image: "/images/projects/samsung-tv-remote.png",
     tags: ["Kotlin", "IR Blaster API", "Wi-Fi Direct", "WebSocket"],
     playStoreUrl:
@@ -41,12 +54,64 @@ export const projects: Project[] = [
     id: "com.paperly.pdfscanner",
     title: "PDF Scanner – Sign & OCR",
     description:
-      "Document scanner with real-time edge detection using OpenCV, perspective correction, and adaptive image filters. Built a custom CameraX pipeline for high-res capture with automatic document boundary detection.",
+      "A published Android document-scanning utility for turning phone captures into organized PDF output.",
     image: "/images/projects/paperly.png",
-    tags: ["Kotlin", "Jetpack Compose", "OpenCV", "CameraX"],
+    tags: ["Android", "Kotlin", "Document workflow"],
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.paperly.pdfscanner",
     githubUrl: "https://github.com/nabin30217-star",
     featured: false,
   },
-];
+  {
+    id: "com.universaltv.remotetv",
+    title: "Universal Remote for All TV",
+    description:
+      "A multi-brand television remote combining local-network control for smart TVs with infrared control for compatible Android phones, plus casting and screen-mirroring workflows.",
+    image: "/images/projects/universal-tv-remote.png",
+    tags: ["Kotlin", "Jetpack Compose", "Wi-Fi discovery", "IR Blaster"],
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.universaltv.remotetv",
+    githubUrl: "https://github.com/nabin30217-star",
+    featured: false,
+  },
+  {
+    id: "com.tvremote.vestel",
+    title: "Remote For Vestel TV",
+    description:
+      "A hybrid Vestel remote with SSDP discovery and Wake-on-LAN for smart televisions plus native infrared control for compatible legacy models.",
+    image: "/images/projects/vestel-tv-remote.png",
+    tags: ["Kotlin", "SSDP", "Wake-on-LAN", "IR Blaster"],
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.tvremote.vestel",
+    githubUrl: "https://github.com/nabin30217-star",
+    featured: false,
+  },
+  {
+    id: "com.remote.skyworthir",
+    title: "TV Remote For Skyworth",
+    description:
+      "A dual-mode remote for Skyworth televisions using local-network discovery for Android and Google TV models and infrared commands for compatible classic televisions.",
+    image: "/images/projects/skyworth-tv-remote.png",
+    tags: ["Kotlin", "Wi-Fi discovery", "Google TV", "IR Blaster"],
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.remote.skyworthir",
+    githubUrl: "https://github.com/nabin30217-star",
+    featured: false,
+  },
+  {
+    id: "com.remote.bushtvir",
+    title: "Remote for Bush TV",
+    description:
+      "A Bush TV replacement remote with automatic Wi-Fi discovery for supported smart models and offline infrared control for compatible Android devices.",
+    image: "/images/projects/bush-tv-remote.png",
+    tags: ["Kotlin", "Wi-Fi discovery", "Android TV", "IR Blaster"],
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.remote.bushtvir",
+    githubUrl: "https://github.com/nabin30217-star",
+    featured: false,
+  },
+].sort(
+  (first, second) =>
+    (projectRank.get(first.id) ?? Number.MAX_SAFE_INTEGER) -
+    (projectRank.get(second.id) ?? Number.MAX_SAFE_INTEGER),
+);

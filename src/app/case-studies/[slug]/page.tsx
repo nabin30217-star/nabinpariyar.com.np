@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Container from "@/components/ui/Container";
-import Badge from "@/components/ui/Badge";
-import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
-import { getAllCaseStudies, getCaseStudy } from "@/lib/data";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import Container from "@/components/ui/Container";
+import { getAllCaseStudies, getCaseStudy } from "@/lib/data";
+import { getPortfolioProjects } from "@/lib/services/playStore";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const revalidate = 86400;
+
+const packageByCaseSlug: Record<string, string> = {
+  "smart-calculator": "smartcalculator.calculators",
+  vixit: "com.vixit.studio.converter",
+  "samsung-tv-remote": "com.smart.samtvremote",
+};
 
 interface CaseStudyPageProps {
   params: Promise<{ slug: string }>;
@@ -15,95 +23,69 @@ export async function generateStaticParams() {
   return getAllCaseStudies().map((study) => ({ slug: study.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: CaseStudyPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) return {};
 
-  return {
+  return createPageMetadata({
     title: study.title,
     description: study.description,
-  };
+    path: `/case-studies/${slug}`,
+    type: "article",
+  });
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   const { slug } = await params;
   const study = getCaseStudy(slug);
-
   if (!study) notFound();
+  const projects = await getPortfolioProjects();
+  const project = projects.find((item) => item.id === packageByCaseSlug[slug]);
+  const coverImage = project?.image ?? study.coverImage;
 
   return (
-    <Container className="py-24 sm:py-32">
-      {/* Header */}
-      <div className="mb-12">
-        <Button href="/case-studies" variant="ghost" className="mb-6">
-          &larr; All Case Studies
-        </Button>
-        <div className="flex items-center gap-4">
-          <Image
-            src={`/images/projects/${study.slug}.png`}
-            alt={study.title}
-            width={64}
-            height={64}
-            sizes="64px"
-            className="h-16 w-16 rounded-2xl shadow-lg"
-          />
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight text-text">
-              {study.title}
-            </h1>
-            <p className="mt-2 text-lg text-text-muted">{study.description}</p>
-          </div>
+    <Container className="pt-28 pb-20 sm:pt-36 sm:pb-28">
+      <Link href="/case-studies" className="text-link">← All engineering cases</Link>
+
+      <header className="mt-8 grid gap-8 border-b border-border pb-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <div className="flex h-44 w-44 items-center justify-center border border-border bg-surface p-7">
+          <Image src={coverImage} alt={`${study.title} app icon`} width={128} height={128} sizes="128px" className="h-28 w-28 object-contain" priority />
         </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {study.tags.map((tag) => (
-            <Badge key={tag}>{tag}</Badge>
+        <div>
+          <p className="utility-label text-accent">Android engineering case</p>
+          <h1 className="display-title mt-5 text-text">{study.title}</h1>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-text-muted sm:text-xl sm:leading-9">{study.description}</p>
+          <p className="mt-5 font-utility text-xs uppercase leading-6 tracking-[0.06em] text-text-muted">{study.tags.join(" / ")}</p>
+        </div>
+      </header>
+
+      <div className="grid gap-12 pt-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <aside className="lg:sticky lg:top-28 lg:self-start" aria-label="Case study index">
+          <p className="utility-label text-accent">Case index</p>
+          <ol className="mt-5 border-y border-border">
+            {study.sections.map((section, index) => (
+              <li key={section.title} className="grid grid-cols-[2.5rem_1fr] border-b border-border py-4 text-sm last:border-b-0">
+                <span className="font-utility text-xs text-accent">0{index + 1}</span>
+                <a href={`#section-${index + 1}`} className="inline-flex min-h-11 items-center text-text-muted hover:text-text">{section.title}</a>
+              </li>
+            ))}
+          </ol>
+        </aside>
+
+        <article className="technical-copy">
+          {study.sections.map((section, index) => (
+            <section id={`section-${index + 1}`} key={section.title} className="scroll-mt-28 border-b border-border py-9 first:pt-0 last:border-b-0">
+              <p className="utility-label text-accent">0{index + 1}</p>
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.025em] text-text sm:text-4xl">{section.title}</h2>
+              <p className="mt-5 text-lg leading-8 text-text-muted">{section.content}</p>
+            </section>
           ))}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mt-16">
-        {/* Left Column: Text Sections */}
-        <div className="lg:col-span-7 space-y-8">
-          {study.sections.length > 0 ? (
-            study.sections.map((section, i) => (
-              <Card key={i} hover={false} className="p-8">
-                <h2 className="text-2xl font-bold text-text mb-4">
-                  <span className="text-accent/50 mr-2">{(i + 1).toString().padStart(2, '0')}.</span>
-                  {section.title}
-                </h2>
-                <div className="prose prose-invert prose-p:text-text-muted prose-p:leading-8">
-                  <p>{section.content}</p>
-                </div>
-              </Card>
-            ))
-          ) : (
-            <p className="text-text-muted">
-              Detailed case study content coming soon.
-            </p>
-          )}
-        </div>
-
-        {/* Right Column: Sticky Mockup */}
-        <div className="hidden lg:block lg:col-span-5 sticky top-32">
-          <div className="relative mx-auto w-[300px] h-[600px] rounded-[3rem] border-[8px] border-border bg-card shadow-2xl overflow-hidden flex items-center justify-center group">
-            {/* Phone Notch */}
-            <div className="absolute top-0 inset-x-0 h-6 w-32 mx-auto bg-border rounded-b-xl z-20" />
-            
-            {/* Phone Screen Glow */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 to-accent-emerald/20 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <Image
-              src={`/images/projects/${study.slug}.png`}
-              alt={`${study.title} screen`}
-              width={250}
-              height={500}
-              className="object-contain drop-shadow-2xl z-10 transition-transform duration-700 group-hover:scale-105"
-            />
+          <div className="mt-12 border-l-2 border-accent pl-6">
+            <p className="text-lg leading-8 text-text">The public case focuses on product decisions. Source access depends on the project.</p>
+            <Link href="/contact" className="text-link mt-4">Ask about related work →</Link>
           </div>
-        </div>
+        </article>
       </div>
     </Container>
   );

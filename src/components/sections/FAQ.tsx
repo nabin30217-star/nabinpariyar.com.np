@@ -1,106 +1,38 @@
-"use client";
-
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import SlideUp, { StaggerContainer, StaggerItem } from "@/components/animations/SlideUp";
-
 const faqs = [
-    {
-        question: "What services do you offer?",
-        answer:
-            "I build Android apps (Kotlin, Jetpack Compose) and modern websites (Next.js, TypeScript). I also offer UI/UX design, app maintenance, and consulting.",
-    },
-    {
-        question: "How long does a typical project take?",
-        answer:
-            "It depends on complexity. A simple app takes 2-4 weeks, a medium project 4-8 weeks. I'll give you a clear timeline before we start.",
-    },
-    {
-        question: "Do you work with international clients?",
-        answer:
-            "Yes! I work with clients worldwide. I'm comfortable with different time zones and communicate via email, WhatsApp, or any tool you prefer.",
-    },
-    {
-        question: "What's your pricing?",
-        answer:
-            "I offer project-based pricing so you know the full cost upfront — no surprises. Contact me with your project details for a free estimate.",
-    },
-    {
-        question: "Can you maintain my app after launch?",
-        answer:
-            "Absolutely. I offer ongoing support packages including bug fixes, feature updates, and Play Store compliance monitoring.",
-    },
+  {
+    question: "What kind of work is a strong fit?",
+    answer: "Full-stack web applications, operational and garment ERP workflows, native Android products, background processing, media pipelines, device communication, and Play Store delivery.",
+  },
+  {
+    question: "Can you help after an app ships?",
+    answer: "Yes. I publish and maintain my own Play Store apps, so release work, policy changes, failure handling, listing updates, and support are part of my scope.",
+  },
+  {
+    question: "What should I include in the first message?",
+    answer: "Describe the user problem, the main constraint, the current state of the product, and what has already been tried. A concise, concrete brief is enough.",
+  },
 ];
 
-function FAQItem({
-    question,
-    answer,
-    index,
-}: {
-    question: string;
-    answer: string;
-    index: number;
-}) {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return (
-        <StaggerItem direction={index % 2 === 0 ? "left" : "right"}>
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                aria-expanded={isOpen}
-                className="w-full cursor-pointer rounded-xl border border-border bg-card p-5 text-left transition-all duration-300 hover:border-accent/30"
-            >
-                <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold text-text pr-4">{question}</h3>
-                    <motion.span
-                        animate={{ rotate: isOpen ? 45 : 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent text-sm"
-                    >
-                        +
-                    </motion.span>
-                </div>
-                <AnimatePresence>
-                    {isOpen && (
-                        <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="overflow-hidden"
-                        >
-                            <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                                {answer}
-                            </p>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </button>
-        </StaggerItem>
-    );
-}
-
 export default function FAQ() {
-    return (
-        <div className="mt-16">
-            <SlideUp>
-                <h2 className="mb-2 text-2xl font-semibold text-text">
-                    Frequently Asked Questions
-                </h2>
-                <p className="mb-8 text-text-muted">
-                    Quick answers to common questions
-                </p>
-            </SlideUp>
-            <StaggerContainer className="flex flex-col gap-3">
-                {faqs.map((faq, i) => (
-                    <FAQItem
-                        key={faq.question}
-                        question={faq.question}
-                        answer={faq.answer}
-                        index={i}
-                    />
-                ))}
-            </StaggerContainer>
+  return (
+    <section className="mt-20 border-t border-border pt-12" aria-labelledby="contact-faq-title">
+      <div className="grid gap-10 lg:grid-cols-[0.55fr_1.45fr]">
+        <div>
+          <p className="utility-label text-accent">Before writing</p>
+          <h2 id="contact-faq-title" className="mt-3 font-display text-3xl font-semibold text-text">Useful context</h2>
         </div>
-    );
+        <div className="border-y border-border">
+          {faqs.map((faq) => (
+            <details key={faq.question} className="group border-b border-border last:border-b-0">
+              <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-5 py-4 font-semibold text-text marker:content-none">
+                {faq.question}
+                <span aria-hidden="true" className="font-utility text-accent group-open:rotate-45">+</span>
+              </summary>
+              <p className="max-w-2xl pb-6 leading-7 text-text-muted">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }

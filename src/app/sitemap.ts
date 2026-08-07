@@ -17,6 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}/support`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}/delete-account`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
+    { url: `${baseUrl}/data-deletion`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/stack`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
+    { url: `${baseUrl}/changelog`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.2 },
+    { url: `${baseUrl}/press`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
   ];
 
   const caseStudyRoutes: MetadataRoute.Sitemap = getAllCaseStudies().map((study) => ({

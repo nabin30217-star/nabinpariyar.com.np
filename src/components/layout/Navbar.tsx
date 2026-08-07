@@ -1,188 +1,108 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { NAV_LINKS, SITE_CONFIG } from "@/lib/constants";
-import { useTheme } from "@/components/theme/ThemeProvider";
 import Container from "@/components/ui/Container";
-import { SunIcon, MoonIcon, MenuIcon, CloseIcon } from "@/components/ui/Icons";
-import { Search } from "lucide-react";
+import { CloseIcon, MenuIcon } from "@/components/ui/Icons";
+import ThemeToggle from "@/components/theme/ThemeToggle";
+import { NAV_LINKS, SITE_CONFIG } from "@/lib/constants";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const { resolvedTheme, setTheme, mounted } = useTheme();
 
   useEffect(() => {
-    let rafId = 0;
-    const handleScroll = () => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        setScrolled(window.scrollY > 50);
-        rafId = 0;
-      });
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileOpen(false);
     };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    if (mobileOpen) document.addEventListener("keydown", handleEscape);
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      cancelAnimationFrame(rafId);
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleEscape);
     };
-  }, []);
-
-  // Close mobile menu on Escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && mobileOpen) setMobileOpen(false);
-    };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
   }, [mobileOpen]);
 
-  const toggleTheme = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
-  };
-
   return (
-    <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled
-        ? "border-b border-border bg-bg/80 shadow-sm backdrop-blur-md"
-        : "border-transparent bg-transparent"
-        }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-bg/95 backdrop-blur-md">
       <Container>
-        <nav className="flex h-16 items-center justify-between">
-          {/* Logo + Availability */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="text-lg font-bold tracking-tight text-text"
-            >
-              {SITE_CONFIG.name}
-            </Link>
-            <span className="hidden items-center gap-1.5 rounded-full border border-accent-emerald/30 bg-accent-emerald/10 px-2.5 py-1 text-xs font-medium text-accent-emerald shadow-[0_0_12px_rgba(16,185,129,0.15)] sm:flex">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-emerald opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-emerald" />
-              </span>
-              Available for Work
-            </span>
-          </div>
-
-          {/* Desktop links */}
-          <div className="hidden items-center gap-1 md:flex">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={pathname === link.href ? "page" : undefined}
-                className={`link-underline rounded-lg px-3 py-2 text-sm font-medium transition-colors ${pathname === link.href
-                  ? "text-accent"
-                  : "text-text-muted hover:text-accent-hover"
-                  }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-
-            {/* Theme toggle — only render icon after mount to avoid hydration mismatch */}
-            <button
-              onClick={toggleTheme}
-              className="ml-2 cursor-pointer rounded-lg p-2 text-text-muted transition-colors hover:text-accent-hover"
-              aria-label="Toggle theme"
-            >
-              {mounted ? (
-                resolvedTheme === "dark" ? <SunIcon /> : <MoonIcon />
-              ) : (
-                <span className="inline-block h-5 w-5" />
-              )}
-            </button>
-            <button
-              onClick={() => {
-                document.dispatchEvent(
-                  new KeyboardEvent("keydown", {
-                    key: "k",
-                    metaKey: true,
-                    bubbles: true,
-                  })
-                );
-              }}
-              className="ml-1 flex items-center gap-2 rounded-lg bg-border/50 px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:bg-border hover:text-text"
-              aria-label="Search"
-            >
-              <Search className="h-4 w-4" />
-              <span className="hidden lg:inline-block">Cmd K</span>
-            </button>
-          </div>
-
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="cursor-pointer rounded-lg p-2 text-text-muted md:hidden"
-            aria-label="Toggle menu"
-            aria-expanded={mobileOpen}
+        <nav className="flex h-18 items-center justify-between" aria-label="Primary navigation">
+          <Link
+            href="/"
+            prefetch={false}
+            onClick={() => setMobileOpen(false)}
+            className="inline-flex min-h-11 items-center font-display text-xl font-semibold tracking-[-0.02em] text-text"
           >
-            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
-          </button>
-        </nav>
-      </Container>
+            {SITE_CONFIG.name}
+          </Link>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden border-t border-border bg-bg/95 backdrop-blur-md md:hidden"
-          >
-            <Container className="py-4">
-              <div className="flex flex-col gap-1">
-                {NAV_LINKS.map((link) => (
+          <div className="flex items-center gap-2">
+            <div className="hidden items-center md:flex">
+              {NAV_LINKS.map((link) => {
+                const active = pathname === link.href;
+                return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    aria-current={pathname === link.href ? "page" : undefined}
-                    className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${pathname === link.href
-                      ? "text-accent"
-                      : "text-text-muted hover:text-accent-hover"
-                      }`}
+                    prefetch={false}
+                    aria-current={active ? "page" : undefined}
+                    className={`inline-flex min-h-11 items-center px-4 font-utility text-xs uppercase tracking-[0.08em] transition-colors ${
+                      active ? "text-accent" : "text-text-muted hover:text-text"
+                    }`}
                   >
                     {link.label}
                   </Link>
-                ))}
-                <button
-                  onClick={toggleTheme}
-                  className="mt-2 cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium text-text-muted transition-colors hover:text-accent-hover"
+                );
+              })}
+            </div>
+
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => setMobileOpen((open) => !open)}
+              className="inline-flex h-11 w-11 items-center justify-center border border-border text-text md:hidden"
+              aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-navigation"
+            >
+              {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+            </button>
+          </div>
+        </nav>
+      </Container>
+
+      {mobileOpen && (
+        <div
+          id="mobile-navigation"
+          className="fixed inset-x-0 top-[4.5rem] min-h-[calc(100svh-4.5rem)] border-t border-border bg-bg md:hidden"
+        >
+          <Container className="flex min-h-[calc(100svh-4.5rem)] flex-col py-6">
+            {NAV_LINKS.map((link, index) => {
+              const active = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  prefetch={false}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setMobileOpen(false)}
+                  className="grid min-h-20 grid-cols-[2.5rem_1fr] items-center border-b border-border font-display text-3xl font-semibold text-text"
                 >
-                  {mounted ? (resolvedTheme === "dark" ? "Light Mode" : "Dark Mode") : "Toggle Theme"}
-                </button>
-                <button
-                  onClick={() => {
-                    setMobileOpen(false);
-                    document.dispatchEvent(
-                      new KeyboardEvent("keydown", {
-                        key: "k",
-                        metaKey: true,
-                        bubbles: true,
-                      })
-                    );
-                  }}
-                  className="mt-1 flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-left text-sm font-medium text-text-muted transition-colors hover:text-accent-hover"
-                >
-                  <Search className="h-4 w-4" />
-                  Search (Cmd K)
-                </button>
-              </div>
-            </Container>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  <span className="font-utility text-xs text-accent">0{index + 1}</span>
+                  {link.label}
+                </Link>
+              );
+            })}
+            <p className="mt-auto pt-8 font-utility text-xs uppercase tracking-[0.1em] text-text-muted">
+              Kathmandu time / building from Nepal
+            </p>
+          </Container>
+        </div>
+      )}
     </header>
   );
 }

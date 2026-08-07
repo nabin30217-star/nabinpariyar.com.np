@@ -2,17 +2,20 @@ import { blogPosts, type BlogPost } from "./blog";
 import { caseStudies } from "./case-studies";
 import type { CaseStudy } from "@/types";
 
+const retiredPostSlugs = new Set(["why-i-built-my-portfolio-with-nextjs"]);
+
 // Blog helpers
 export function getAllBlogPosts(): BlogPost[] {
-  return blogPosts;
+  return blogPosts.filter((post) => !retiredPostSlugs.has(post.slug));
 }
 
 export function getBlogPost(slug: string): BlogPost | undefined {
+  if (retiredPostSlugs.has(slug)) return undefined;
   return blogPosts.find((post) => post.slug === slug);
 }
 
 export function getAllBlogSlugs(): string[] {
-  return blogPosts.map((post) => post.slug);
+  return getAllBlogPosts().map((post) => post.slug);
 }
 
 // Case study helpers

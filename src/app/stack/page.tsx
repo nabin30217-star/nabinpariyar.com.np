@@ -1,76 +1,39 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { Laptop, Monitor, Smartphone, Code2, Database, Paintbrush } from "lucide-react";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "My Stack & Uses",
-  description: "A detailed list of the hardware, software, and tools I use for development.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "Working Stack",
+  description: "The web, Android, backend, cloud, recovery, device-integration, and Google Play technologies I use in real products.",
+  path: "/stack",
+});
 
-const stackCategories = [
-  {
-    title: "Hardware",
-    icon: <Laptop className="w-5 h-5" />,
-    items: [
-      { name: "Primary Machine", desc: "Custom Windows Build (Ryzen 7, 32GB RAM) for heavy Android builds." },
-      { name: "Monitors", desc: "Dual 27-inch 4K IPS Displays for maximum code real estate." },
-      { name: "Test Devices", desc: "Samsung Galaxy S23 Ultra, Google Pixel 6a." },
-    ]
-  },
-  {
-    title: "Development Tools",
-    icon: <Code2 className="w-5 h-5" />,
-    items: [
-      { name: "Android Studio", desc: "Primary IDE for Kotlin & Jetpack Compose development." },
-      { name: "VS Code", desc: "For Next.js, React, and TypeScript web development." },
-      { name: "Git & GitHub", desc: "Version control and CI/CD pipelines." },
-      { name: "Postman", desc: "For API testing and integration." },
-    ]
-  },
-  {
-    title: "Software & Design",
-    icon: <Paintbrush className="w-5 h-5" />,
-    items: [
-      { name: "Figma", desc: "UI/UX design and prototyping before writing code." },
-      { name: "Notion", desc: "Project management, documentation, and brain dumps." },
-      { name: "DaVinci Resolve", desc: "For editing promotional app videos." },
-    ]
-  }
+const stack = [
+  ["Languages", "TypeScript / JavaScript / Kotlin / SQL / HTML / CSS"],
+  ["Full-stack web", "Next.js / React / Server Components / route handlers / APIs"],
+  ["Web interface", "Responsive layouts / Tailwind CSS / semantic HTML / accessibility"],
+  ["Backend and data", "Supabase PostgreSQL / Auth / Storage / Realtime / Edge Functions / Row Level Security"],
+  ["Cloud and recovery", "Cloudflare / GitHub / Google Drive / daily backups / staging restoration"],
+  ["Android product", "Kotlin / Jetpack Compose / Material 3 / MVVM / Room / Retrofit / Firebase"],
+  ["Background and media", "WorkManager / coroutines / FFmpeg / CameraX / OpenCV"],
+  ["Device communication", "IR / SSDP / UPnP / WebSocket / Wake-on-LAN / casting / screen mirroring"],
+  ["Publishing", "Google Play Console / AAB / ASO / test tracks / production releases"],
 ];
 
 export default function StackPage() {
   return (
-    <Container className="py-24 sm:py-32 max-w-4xl">
-      <SectionHeading
-        title="Uses / Stack"
-        subtitle="A curated list of the hardware, software, and tools I rely on daily to build, design, and ship products."
-      />
-
-      <div className="mt-16 space-y-16">
-        {stackCategories.map((category) => (
-          <section key={category.title} className="relative">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-2 rounded-lg bg-accent/10 text-accent">
-                {category.icon}
-              </div>
-              <h2 className="text-2xl font-bold text-text">{category.title}</h2>
-            </div>
-            
-            <div className="grid gap-4 sm:grid-cols-2">
-              {category.items.map((item) => (
-                <div 
-                  key={item.name}
-                  className="p-5 rounded-xl border border-border bg-card hover:border-accent/30 transition-colors"
-                >
-                  <h3 className="font-semibold text-text mb-2">{item.name}</h3>
-                  <p className="text-sm text-text-muted leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+    <Container className="max-w-5xl pt-28 pb-20 sm:pt-36 sm:pb-28">
+      <SectionHeading eyebrow="Working stack / used in real products" title="The technologies I use across web, Android, cloud, and release work." subtitle="I list tools here when they are part of a product I built, delivered, published, or currently maintain." />
+      <dl className="border-y border-border">
+        {stack.map(([label, value], index) => (
+          <div key={label} className="grid gap-2 border-b border-border py-6 last:border-b-0 sm:grid-cols-[3rem_12rem_1fr]">
+            <span className="font-utility text-xs text-accent">0{index + 1}</span>
+            <dt className="font-semibold text-text">{label}</dt>
+            <dd className="leading-7 text-text-muted">{value}</dd>
+          </div>
         ))}
-      </div>
+      </dl>
     </Container>
   );
 }

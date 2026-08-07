@@ -1,11 +1,15 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
-export const runtime = "edge";
-export const alt = "Nabin Pariyar — Android & Web Developer";
+export const alt = "Nabin Pariyar — full-stack web and Android developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
+  const profile = await readFile(path.join(process.cwd(), "public", "images", "nabin-profile.png"));
+  const profileUrl = `data:image/png;base64,${profile.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -13,111 +17,86 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          background: "linear-gradient(135deg, #0b1220 0%, #1e293b 50%, #0b1220 100%)",
-          fontFamily: "sans-serif",
+          justifyContent: "space-between",
+          gap: 64,
+          padding: "64px 72px",
+          background: "#151411",
+          color: "#f3eee3",
+          fontFamily: "Arial, sans-serif",
         }}
       >
-        {/* Accent glow */}
-        <div
-          style={{
-            position: "absolute",
-            top: "-200px",
-            right: "-100px",
-            width: "500px",
-            height: "500px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-150px",
-            left: "-50px",
-            width: "400px",
-            height: "400px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)",
-          }}
-        />
-
-        {/* Content */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            gap: "16px",
+            width: 650,
           }}
         >
-          {/* Code icon */}
           <div
             style={{
-              width: "64px",
-              height: "64px",
-              borderRadius: "16px",
-              background: "rgba(59,130,246,0.2)",
-              border: "2px solid rgba(59,130,246,0.3)",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "28px",
-              color: "#3b82f6",
-            }}
-          >
-            {"</>"}
-          </div>
-
-          <div
-            style={{
-              fontSize: "52px",
+              fontSize: 18,
               fontWeight: 700,
-              color: "#f1f5f9",
-              letterSpacing: "-1px",
+              letterSpacing: 2.4,
+              textTransform: "uppercase",
+              color: "#e05a33",
             }}
           >
-            Nabin Pariyar
+            Full-stack web / Android developer / Nepal
           </div>
 
           <div
             style={{
-              fontSize: "24px",
-              color: "#3b82f6",
-              fontWeight: 500,
+              display: "flex",
+              marginTop: 24,
+              fontSize: 54,
+              fontWeight: 700,
+              lineHeight: 1.08,
+              letterSpacing: -2.4,
             }}
           >
-            Android & Web Developer
+            Web systems and Android apps, built end to end.
           </div>
 
           <div
             style={{
-              fontSize: "18px",
-              color: "#94a3b8",
-              maxWidth: "600px",
-              textAlign: "center",
-              lineHeight: 1.5,
+              display: "flex",
+              marginTop: 32,
+              fontSize: 24,
+              color: "#c9bead",
             }}
           >
-            Self-taught developer from Nepal with several apps on the Play Store
+            TypeScript / Next.js / Kotlin / Compose / Garment ERP
           </div>
         </div>
 
-        {/* Bottom border accent */}
         <div
           style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "4px",
-            background: "linear-gradient(90deg, transparent, #3b82f6, transparent)",
+            display: "flex",
+            width: 340,
+            height: 470,
+            overflow: "hidden",
+            border: "2px solid #e05a33",
+            background: "#201e19",
           }}
-        />
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={profileUrl}
+            alt="Portrait of Nabin Pariyar"
+            width="340"
+            height="470"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
+        </div>
       </div>
     ),
-    { ...size }
+    size,
   );
 }

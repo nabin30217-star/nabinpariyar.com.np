@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nabin Pariyar Portfolio
 
-## Getting Started
+Personal portfolio and public support site for Nabin Pariyar: a full-stack web and Android engineer building a garment ERP and publishing eight Android products under **TheMixzone**.
 
-First, run the development server:
+The site is built with Next.js, React, TypeScript, and Tailwind CSS. It includes portfolio projects, case studies, app support and policy pages, account/data deletion instructions, advertising verification files, analytics, and consent tooling.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Contributor Documentation
+
+Read these before making changes:
+
+- [`AGENTS.md`](AGENTS.md) — repository-wide implementation and verification rules.
+- [`docs/DESIGN_GUARDRAILS.md`](docs/DESIGN_GUARDRAILS.md) — protected visual direction, responsive behavior, and patterns to avoid.
+- [`docs/PLAY_CONSOLE_REQUIREMENTS.md`](docs/PLAY_CONSOLE_REQUIREMENTS.md) — required routes, public files, identifiers, footer links, CSP, ads, analytics, and release checks.
+
+## Local Development
+
+Install dependencies and start the development server:
+
+```powershell
+npm.cmd install
+npm.cmd run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verification
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```powershell
+npm.cmd run lint
+npx.cmd tsc --noEmit
+npm.cmd test
+npm.cmd run test:e2e
+npm.cmd run build
+```
 
-## Learn More
+For the full five-width route crawl, run the production build/server and then the browser QA command in another terminal:
 
-To learn more about Next.js, take a look at the following resources:
+```powershell
+npm.cmd run build
+npm.cmd start
+npm.cmd run qa:browser
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Changes to navigation, policy pages, public files, CSP, or the root layout require the additional browser and route checks documented in `AGENTS.md`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Important Public Endpoints
 
-## Deploy on Vercel
+- `/privacy-policy`
+- `/terms`
+- `/support`
+- `/delete-account`
+- `/data-deletion`
+- `/app-ads.txt`
+- `/ads.txt`
+- `/robots.txt`
+- `/sitemap.xml`
+- `/.well-known/security.txt`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Do not remove these as part of design cleanup or navigation simplification.

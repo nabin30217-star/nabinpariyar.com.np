@@ -1,33 +1,28 @@
 import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
-import Stats from "@/components/sections/Stats";
-import Expertise from "@/components/sections/Expertise";
+import BuildCapabilities from "@/components/sections/BuildCapabilities";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
-import Philosophy from "@/components/sections/Philosophy";
+import HomeAbout from "@/components/sections/HomeAbout";
 import ContactCTA from "@/components/sections/ContactCTA";
-import { getPlayStoreApps } from "@/lib/services/playStore";
-import { getGithubRepoCount } from "@/lib/services/github";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Nabin Pariyar — Android & Web Developer from Nepal",
+export const revalidate = 86400;
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Nabin Pariyar — Full-Stack Web & Android Developer",
   description:
-    "Self-taught developer from Nepal with published apps on Google Play Store. Building Android apps with Kotlin and web experiences with Next.js.",
-};
+    "I build full-stack business systems and native Android products, including a live private garment ERP and eight apps published through my TheMixzone account.",
+  path: "/",
+  absoluteTitle: true,
+});
 
-export const revalidate = 3600;
-
-export default async function Home() {
-  const playStoreApps = await getPlayStoreApps();
-  const playStoreAppCount = playStoreApps.length;
-  const githubRepoCount = await getGithubRepoCount("nabin30217-star");
-
+export default function Home() {
   return (
     <>
       <Hero />
-      <Stats playStoreAppCount={playStoreAppCount} githubRepoCount={githubRepoCount} />
-      <Expertise />
-      <FeaturedProjects playStoreApps={playStoreApps} />
-      <Philosophy />
+      <BuildCapabilities />
+      <FeaturedProjects />
+      <HomeAbout />
       <ContactCTA />
     </>
   );

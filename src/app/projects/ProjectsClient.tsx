@@ -1,106 +1,117 @@
-"use client";
-
+import Image from "next/image";
+import Link from "next/link";
 import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Badge from "@/components/ui/Badge";
-import SpotlightCard from "@/components/animations/SpotlightCard";
-import { StaggerContainer, StaggerItem } from "@/components/animations/SlideUp";
-import ProjectCardImage from "@/components/ui/ProjectCardImage";
-import { Project } from "@/types";
+import type { Project } from "@/types";
 
-function getStatusColor(project: Project) {
-  if (project.playStoreUrl || project.liveUrl) return "text-emerald-400";
-  return "text-yellow-400";
-}
-
-function getStatusLabel(project: Project) {
-  if (project.liveUrl) return "Live";
-  if (project.playStoreUrl) return "Published";
-  return "In Development";
-}
-
-const directions: Array<"left" | "up" | "right"> = ["left", "up", "right"];
+const caseStudySlugs: Record<string, string> = {
+  "smartcalculator.calculators": "smart-calculator",
+  "com.vixit.studio.converter": "vixit",
+  "com.smart.samtvremote": "samsung-tv-remote",
+};
 
 export default function ProjectsClient({ projects }: { projects: Project[] }) {
   return (
-    <Container className="py-24 sm:py-32">
-      <SectionHeading title="Projects" subtitle="Apps and tools I've built" />
+    <Container className="pt-28 pb-20 sm:pt-36 sm:pb-28">
+      <div className="grid gap-8 border-b border-border pb-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <p className="utility-label text-accent">Work / full-stack web + native Android</p>
+        <div>
+          <h1 className="display-title text-text">I build complete web systems and Android products.</h1>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-text-muted sm:text-xl sm:leading-9">
+            Since June 2025, I have independently built more than 15 Android apps, a private full-stack ERP,
+            and this portfolio. Eight of my Android products are currently published through my own TheMixzone
+            Google Play account; the others are in testing or awaiting release.
+          </p>
+        </div>
+      </div>
 
-      <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project, index) => (
-          <StaggerItem
-            key={project.id}
-            direction={directions[index % directions.length]}
-            scale
-          >
-            <SpotlightCard className="flex h-full flex-col p-6">
-              {/* Status indicator */}
-              <div className="mb-3 flex items-center gap-2">
-                <span
-                  className={`h-2 w-2 rounded-full ${getStatusColor(project)} bg-current`}
+      <section className="border-b border-border py-12 sm:py-16" aria-labelledby="web-projects-title">
+        <div className="grid gap-10 lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:gap-16">
+          <figure>
+            <div className="overflow-hidden border border-border bg-surface">
+              <Image
+                src="/images/projects/raj-garment-erp-order.png"
+                alt="Raj Garment ERP new-order screen"
+                width={1889}
+                height={930}
+                sizes="(max-width: 1024px) 100vw, 56vw"
+                className="h-auto w-full"
+              />
+            </div>
+            <figcaption className="mt-3 font-utility text-[0.68rem] uppercase tracking-[0.08em] text-text-muted">
+              Live product interface / order management
+            </figcaption>
+          </figure>
+          <div>
+            <div className="flex items-center gap-4">
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden border border-border bg-white p-1.5 sm:h-24 sm:w-24">
+                <Image
+                  src="/images/projects/raj-garment-logo.png"
+                  alt="Raj Garment logo"
+                  width={911}
+                  height={890}
+                  sizes="96px"
+                  className="h-full w-full object-contain"
                 />
-                <span className="text-xs font-medium text-text-muted">
-                  {getStatusLabel(project)}
-                </span>
               </div>
-
-              <ProjectCardImage projectId={project.id} imageUrl={project.image} />
-              <h3 className="text-lg font-semibold text-text">
-                {project.title}
-              </h3>
-              <p className="mt-2 text-sm text-text-muted line-clamp-3">
-                {project.description}
-              </p>
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <Badge key={tag}>{tag}</Badge>
-                ))}
+              <div>
+                <p className="utility-label text-accent">Private full-stack ERP / live</p>
+                <p className="mt-2 text-sm text-text-muted">Completed, delivered, and maintained</p>
               </div>
-
-              <div className="mt-auto flex flex-wrap gap-3 pt-6">
-                {project.playStoreUrl && (
-                  <a
-                    href={project.playStoreUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent transition-colors hover:bg-accent/20"
-                  >
-                    <svg
-                      className="h-4 w-4"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
-                    </svg>
-                    Google Play
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link-underline inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:border-accent/30 hover:text-accent"
-                  >
-                    Live Site &rarr;
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link-underline inline-flex items-center gap-1 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-muted transition-colors hover:border-accent/30 hover:text-accent"
-                  >
-                    GitHub &rarr;
-                  </a>
-                )}
+            </div>
+            <h2 id="web-projects-title" className="mt-7 font-display text-4xl font-semibold leading-none tracking-[-0.035em] text-text sm:text-5xl">Raj Garment ERP</h2>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-text-muted">
+              I independently designed and built this private ERP for a garment operation spanning three shops and more than 80 people. It manages accounting, orders, production, inventory, employees, attendance, piece-rate work, payroll, expenses, permissions, reports, and daily operations.
+            </p>
+            <p className="mt-5 max-w-3xl leading-7 text-text-muted">I also built administrator-only diagnostics that explain where a fault occurred, what failed, and why; email and in-app alerts; complete audit logs; and daily recoverable backups across Supabase, Google Drive, and GitHub.</p>
+            <dl className="mt-7 grid grid-cols-2 border-y border-border">
+              <div className="border-r border-border py-5 pr-4">
+                <dt className="utility-label text-accent">Operation</dt>
+                <dd className="mt-2 font-display text-2xl font-semibold text-text">3 shops</dd>
               </div>
-            </SpotlightCard>
-          </StaggerItem>
-        ))}
-      </StaggerContainer>
+              <div className="py-5 pl-4">
+                <dt className="utility-label text-accent">People</dt>
+                <dd className="mt-2 font-display text-2xl font-semibold text-text">80+</dd>
+              </div>
+            </dl>
+            <p className="mt-5 font-utility text-xs uppercase leading-6 tracking-[0.05em] text-text-muted">TypeScript / Next.js / React / Supabase PostgreSQL / Cloudflare / daily backup &amp; recovery</p>
+            <Link href="/contact" prefetch={false} className="text-link mt-6">Ask about a similar operational system →</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="pt-16" aria-labelledby="android-products-title">
+        <div className="grid gap-5 border-b border-border pb-8 sm:grid-cols-[0.7fr_1.3fr] sm:items-end">
+          <p className="utility-label text-accent">Google Play / complete catalogue</p>
+          <div>
+            <h2 id="android-products-title" className="section-title text-text">Eight apps currently published on my TheMixzone account.</h2>
+            <p className="mt-4 max-w-3xl leading-7 text-text-muted">I have built more than 15 Android apps in total. This list shows the eight currently live on Google Play, ordered from broader products to focused utilities.</p>
+          </div>
+        </div>
+
+      <div className="divide-y divide-border border-b border-border">
+        {projects.map((project, index) => {
+          const slug = caseStudySlugs[project.id];
+          return (
+            <article key={project.id} className="grid gap-8 py-12 lg:grid-cols-[0.52fr_1.48fr] lg:gap-16 sm:py-16">
+              <div className="flex min-h-64 items-center justify-center border border-border bg-surface p-8">
+                <Image src={project.image} alt={`${project.title} app icon`} width={160} height={160} sizes="160px" className="h-32 w-32 object-contain sm:h-40 sm:w-40" />
+              </div>
+              <div className="self-center">
+                <p className="utility-label text-accent">{String(index + 1).padStart(2, "0")} / {project.playStoreUrl ? "Published on Google Play" : "Product"}</p>
+                <h2 className="mt-4 font-display text-4xl font-semibold leading-none tracking-[-0.035em] text-text sm:text-5xl">{project.title}</h2>
+                <p className="mt-5 max-w-3xl text-lg leading-8 text-text-muted">{project.description}</p>
+                <p className="mt-5 font-utility text-xs uppercase leading-6 tracking-[0.05em] text-text-muted">{project.tags.join(" / ")}</p>
+                <div className="mt-6 flex flex-wrap gap-x-7">
+                  {slug && <Link href={`/case-studies/${slug}`} className="text-link">Technical case →</Link>}
+                  {project.playStoreUrl && <a href={project.playStoreUrl} target="_blank" rel="noopener noreferrer" className="text-link">Google Play ↗</a>}
+                  {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-link">GitHub profile ↗</a>}
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      </section>
     </Container>
   );
 }

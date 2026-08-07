@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import { SITE_CONFIG } from "@/lib/constants";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Terms & Conditions",
-  description: "Terms and conditions for apps and services by Nabin Pariyar.",
-};
+  description: "Terms and conditions for Android apps published by TheMixzone.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (
@@ -80,7 +82,7 @@ export default function TermsPage() {
             contact us at{" "}
             <a
               href={`mailto:${SITE_CONFIG.supportEmail}`}
-              className="text-accent hover:text-accent-hover"
+              className="inline-flex min-h-11 items-center text-accent hover:text-accent-hover"
             >
               {SITE_CONFIG.supportEmail}
             </a>

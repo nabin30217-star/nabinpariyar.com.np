@@ -1,82 +1,63 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { Download, Image as ImageIcon, FileText } from "lucide-react";
-import Link from "next/link";
+import { getPortfolioProjects } from "@/lib/services/playStore";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Press & Media Kit",
-  description: "Downloadable assets, app icons, and branding materials for Nabin Pariyar.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "Press Reference",
+  description: "My verified biography, profile image, engineering background, Android app assets, and contact information.",
+  path: "/press",
+});
 
-export default function PressPage() {
+export const revalidate = 86400;
+
+export default async function PressPage() {
+  const projects = await getPortfolioProjects();
+
   return (
-    <Container className="py-24 sm:py-32 max-w-4xl">
-      <SectionHeading
-        title="Press & Media Kit"
-        subtitle="High-resolution assets, app icons, and official bio for publications, blogs, and reviewers."
-      />
+    <Container className="max-w-5xl pt-28 pb-20 sm:pt-36 sm:pb-28">
+      <SectionHeading eyebrow="Press / factual reference" title="My biography and current product assets." subtitle="I provide the verified text and images below for coverage, reviews, or interview requests." />
 
-      <div className="mt-16 grid gap-8 md:grid-cols-2">
-        {/* Bio Section */}
-        <div className="p-8 rounded-2xl border border-border bg-card">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 rounded-lg bg-accent/10 text-accent">
-              <FileText className="w-5 h-5" />
-            </div>
-            <h2 className="text-xl font-bold text-text">Official Bio</h2>
-          </div>
-          <div className="prose prose-invert prose-p:text-text-muted">
-            <p>
-              <strong>Short:</strong> Nabin Pariyar is a self-taught Android and Web Developer from Nepal, creating highly-rated utility apps on the Google Play Store using Kotlin and Jetpack Compose.
-            </p>
-            <p className="mt-4">
-              <strong>Long:</strong> Nabin Pariyar is an independent Android and Web Developer based in Nepal. With a focus on clean architecture and premium UI/UX, he has published multiple successful applications on the Google Play Store, including Smart Calculator and Vixit Video Compressor. Completely self-taught, Nabin specializes in Kotlin, Jetpack Compose, and Next.js, building tools that solve real-world problems with elegance and efficiency.
-            </p>
-          </div>
+      <section className="grid gap-10 border-b border-border pb-12 lg:grid-cols-[0.58fr_1.42fr]" aria-labelledby="press-bio-title">
+        <div>
+          <Image src="/images/nabin-profile.png" alt="Nabin Pariyar" width={420} height={525} priority sizes="(max-width: 1024px) 100vw, 360px" className="h-auto w-full border border-border object-cover" />
+          <a href="/images/nabin-profile.png" download className="text-link mt-3">Download my profile image ↓</a>
         </div>
-
-        {/* Assets Section */}
-        <div className="p-8 rounded-2xl border border-border bg-card flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-accent-emerald/10 text-accent-emerald">
-                <ImageIcon className="w-5 h-5" />
-              </div>
-              <h2 className="text-xl font-bold text-text">Brand Assets</h2>
-            </div>
-            <p className="text-text-muted mb-6">
-              Download high-resolution app icons, screenshots, and promotional materials for use in articles and reviews.
-            </p>
-            
-            <ul className="space-y-4">
-              <li className="flex items-center justify-between p-3 rounded-lg bg-bg border border-border">
-                <span className="text-sm font-medium text-text">Profile Photos</span>
-                <span className="text-xs text-text-muted">JPG • 5MB</span>
-              </li>
-              <li className="flex items-center justify-between p-3 rounded-lg bg-bg border border-border">
-                <span className="text-sm font-medium text-text">App Icons & Logos</span>
-                <span className="text-xs text-text-muted">PNG/SVG • 12MB</span>
-              </li>
-              <li className="flex items-center justify-between p-3 rounded-lg bg-bg border border-border">
-                <span className="text-sm font-medium text-text">Product Screenshots</span>
-                <span className="text-xs text-text-muted">PNG • 25MB</span>
-              </li>
-            </ul>
+        <div>
+          <p className="utility-label text-accent">My biography</p>
+          <h2 id="press-bio-title" className="mt-4 font-display text-4xl font-semibold text-text">Nabin Pariyar</h2>
+          <div className="mt-6 space-y-5 text-lg leading-8 text-text-muted">
+            <p>I am a full-stack web and Android developer from Nepal with three years of software-industry experience. I spent two years working as part of a team managing three company-owned Google Play Console accounts covering approximately 900 apps, including publishing, store listings, AAB releases, ASO, and IR-code research.</p>
+            <p>Since June 2025, I have worked independently. I built and delivered a private garment ERP that is live across three shops and supports an operation of more than 80 people. I have also built more than 15 Android apps and currently publish eight of them through my own TheMixzone account.</p>
+            <p>My work includes TypeScript, Next.js, React, Supabase, Cloudflare, Kotlin, Jetpack Compose, FFmpeg, WorkManager, device discovery, infrared control, WebSockets, Wake-on-LAN, deployment, publishing, backup, and recovery systems.</p>
           </div>
-          
-          <button className="mt-8 w-full flex items-center justify-center gap-2 py-3 px-4 bg-accent hover:bg-accent-hover text-white font-medium rounded-lg transition-colors">
-            <Download className="w-4 h-4" />
-            Download Full Press Kit (.ZIP)
-          </button>
+          <p className="mt-6 leading-7 text-text-muted">For interviews or fact-checking, email <a href="mailto:nabin30217@gmail.com" className="text-link align-middle">nabin30217@gmail.com</a>.</p>
         </div>
-      </div>
+      </section>
 
-      <div className="mt-16 text-center">
-        <p className="text-text-muted">
-          For press inquiries or interview requests, please <Link href="/contact" className="text-accent hover:underline">contact me here</Link>.
-        </p>
-      </div>
+      <section className="pt-12" aria-labelledby="app-assets-title">
+        <p className="utility-label text-accent">My published products</p>
+        <h2 id="app-assets-title" className="mt-3 font-display text-3xl font-semibold text-text">Current Google Play icons</h2>
+        <p className="mt-4 max-w-3xl leading-7 text-text-muted">These titles and icons refresh from my public Google Play listings each day. Local files remain as fallbacks if Google Play is temporarily unavailable.</p>
+        <ul className="mt-7 grid gap-px border border-border bg-border sm:grid-cols-2">
+          {projects.map((project) => (
+            <li key={project.id} className="bg-bg p-5">
+              <a href={project.playStoreUrl ?? project.image} target="_blank" rel="noopener noreferrer" className="flex min-h-24 items-center gap-5">
+                <Image src={project.image} alt={`${project.title} app icon`} width={72} height={72} sizes="72px" className="h-18 w-18 object-contain" />
+                <span>
+                  <span className="block font-semibold text-text">{project.title}</span>
+                  <span className="mt-1 block text-sm text-text-muted">Open current listing ↗</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <Link href="/contact" className="text-link mt-10">Press or interview inquiry →</Link>
     </Container>
   );
 }
