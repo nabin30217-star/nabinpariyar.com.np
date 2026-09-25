@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
     <Container className="max-w-4xl pt-28 pb-20 sm:pt-36 sm:pb-28">
       <p className="utility-label text-accent">TheMixzone apps / nabinpariyar.com.np</p>
       <h1 className="section-title mt-4 text-text">Privacy policy</h1>
-      <p className="mt-4 text-sm text-text-muted">Effective date: August 7, 2026</p>
+      <p className="mt-4 text-sm text-text-muted">Effective date: September 25, 2026</p>
 
       <div className="mt-12 max-w-3xl space-y-10">
         <section>
@@ -29,6 +29,11 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 className="font-display text-2xl font-semibold text-text">3. Google services in apps</h2>
           <p className="mt-3 leading-7 text-text-muted">A specific app may use Google services such as AdMob, Analytics, or Crashlytics. Depending on the service and your settings, Google may process advertising identifiers, device information, app activity, diagnostics, approximate location derived from network information, or other data described in that app’s Data Safety disclosure. Google controls its own processing and retention.</p>
+        </section>
+        <section>
+          <h2 className="font-display text-2xl font-semibold text-text">Samsung TV Remote app</h2>
+          <p className="mt-3 leading-7 text-text-muted">The Samsung TV Remote app discovers and controls compatible TVs over the local Wi-Fi network or an Android infrared emitter. Saved TV addresses, pairing tokens, and preferences stay on the device. Local media casting sends a selected photo or video to a compatible TV over the home network; it is not uploaded to my servers. The screen-sharing shortcut opens Android cast settings and does not itself transmit the phone screen.</p>
+          <p className="mt-3 leading-7 text-text-muted">The app may request nearby Wi-Fi, older-Android location for discovery, selected photo/video access for casting, and microphone access only when voice control is started. The device speech-recognition provider may process audio under its own policy. The app uses Google AdMob without third-party mediation adapters, plus Firebase Analytics and Crashlytics. Those Google services may receive advertising, usage, device, and diagnostic data under their policies. Google User Messaging Platform manages ad choices where required.</p>
         </section>
         <section>
           <h2 className="font-display text-2xl font-semibold text-text">4. Website analytics, advertising, and consent</h2>
